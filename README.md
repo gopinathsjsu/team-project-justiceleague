@@ -28,14 +28,6 @@ Team 08 JusticeLeague
 
 # XP Core Values Implemented
 
-<li> Communication </li>
-<li> Simplicity</li>
-<li> Feedback </li>
-<li> Courage </li>
-<li> Respect </li>
-
-<br/> 
-<br/>
 
 # Tools and Languages
 

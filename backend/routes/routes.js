@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const crypto = require("crypto");
+const { hashedPassword } = require("../Utilities/hashing");
 
 // Importing the model
 const apiModel = require("../models/model");
@@ -21,10 +21,7 @@ router.post("/login", async (req, res, next) => {
     // Invoke the query
     const results = await apiModel.loginUser(table, personaType, email);
     if (results.length > 0) {
-      if (
-        crypto.createHash("md5").update(password).digest("hex") ===
-        results[0].password
-      ) {
+      if (hashedPassword(password) === results[0].password) {
         // Return the response
         res.json(JSON.parse(JSON.stringify(results[0])));
       } else {

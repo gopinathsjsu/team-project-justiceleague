@@ -24,11 +24,20 @@ apiModel.login = (table, email) => {
 // Register
 apiModel.register = (dataJson, table) => {
   return new Promise((resolve, reject) => {
-    pool.get_connection((qb) => {
-      qb.insert(table, dataJson, (err, results) => {
-        if (err) return reject(err);
-        return resolve(results);
-      });
+    let query =
+      "select * from " + table + " where email = '" + dataJson.email + "'";
+    db.query(query, (err, results) => {
+      if (err) return reject(err);
+      if (results.length === 0) {
+        pool.get_connection((qb) => {
+          qb.insert(table, dataJson, (err, results) => {
+            if (err) return reject(err);
+            return resolve(results);
+          });
+        });
+      } else {
+        reject("Email already exists");
+      }
     });
   });
 };

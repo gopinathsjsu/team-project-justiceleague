@@ -53,9 +53,11 @@ router.post("/login", async (req, res, next) => {
 
 // Register User
 router.post("/register", async (req, res, next) => {
+  // TO-DO: check if email already exists
   try {
     let personaType = req.body.personaType;
     delete req.body.personaType;
+    // Hash the password
     req.body.password = hashedPassword(req.body.password);
     let table = await checkPersona(personaType, res);
     if (!table) res.status(500).send("Persona not specified.");
@@ -71,7 +73,7 @@ router.post("/register", async (req, res, next) => {
     // Server Error
     console.error(e);
     res.status(500).json({
-      error: "Internal Server Error: Please try again",
+      error: e,
     });
   }
 });

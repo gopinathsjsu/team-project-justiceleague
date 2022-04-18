@@ -3,9 +3,42 @@ var pool = require("../queryBuilder");
 
 let apiModel = {};
 
-apiModel.testModel = (dataJson) => {
+// Login
+apiModel.login = (table, email) => {
   return new Promise((resolve, reject) => {
-    // Query goes here
+    // SQL query to fetch user details
+    let query =
+      "select t.id, t.email, t.password, t.firstName, t.lastName " +
+      "from " +
+      table +
+      " t where t.email = '" +
+      email +
+      "'";
+    db.query(query, (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
+    });
+  });
+};
+
+// Register
+apiModel.register = (dataJson, table) => {
+  return new Promise((resolve, reject) => {
+    let query =
+      "select * from " + table + " where email = '" + dataJson.email + "'";
+    db.query(query, (err, results) => {
+      if (err) return reject(err);
+      if (results.length === 0) {
+        pool.get_connection((qb) => {
+          qb.insert(table, dataJson, (err, results) => {
+            if (err) return reject(err);
+            return resolve(results);
+          });
+        });
+      } else {
+        reject("Email already exists");
+      }
+    });
   });
 };
 

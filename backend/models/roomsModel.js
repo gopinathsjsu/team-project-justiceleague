@@ -1,12 +1,13 @@
 const db = require("../dbConnection");
-const DB_TABLE_HOTEL = process.env.DB_TABLE_HOTEL || 'hotels';
+const DB_TABLE_ROOMS = process.env.DB_TABLE_ROOMS || 'rooms';
 const model = {};
 
-model.getHotels = (table = DB_TABLE_HOTEL) => {
+model.getRoomsByRoomID = (hotelId, roomId, table = DB_TABLE_ROOMS) => {
 	return new Promise((resolve, reject) => {
 		const query = `
 			SELECT *
 			FROM ${table}
+			WHERE hotel_id = '${hotelId}' AND room_id = '${roomId}'
 			`
 		;
 		db.query(query, (err, results) => {
@@ -16,12 +17,12 @@ model.getHotels = (table = DB_TABLE_HOTEL) => {
 	});
 };
 
-model.getHotelsByID = (hotel_id, table = DB_TABLE_HOTEL) => {
+model.getRoomsByHotelID = (hotelId, table = DB_TABLE_ROOMS) => {
 	return new Promise((resolve, reject) => {
 		const query = `
 			SELECT * 
 			FROM ${table}
-			WHERE hotel_id = ${hotel_id}
+			WHERE hotel_id = '${hotelId}'
 		`
 		;
 

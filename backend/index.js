@@ -12,8 +12,13 @@ const corsConfig = {
 app.use(cors(corsConfig));
 
 const apiRouter = require("./routes/routes");
-app.use("/", apiRouter);
+const hotelRouter = require('./routes/hotel_routes');
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server listening on port ${process.env.PORT}`);
+app.use("/", apiRouter);
+app.use("/hotels", hotelRouter);
+// app.use("/hotels/:hotel_id/rooms", hotelRouter);
+
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server listening on port ${process.env.PORT || 3000}`);
 });

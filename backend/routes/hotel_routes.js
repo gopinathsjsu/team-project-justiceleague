@@ -52,4 +52,17 @@ router.get("/", async (request, response) => {
     }
 });
 
+router.put("/:id", async (request, response) => {
+    try {
+        const { params } = request;
+        const { id } = params;
+
+        const { status, ...data } = await hotel_service.updateHotelById(id);
+        return response.status(status).send({...data});
+    } catch(err) {
+        console.error("HotelRoutes::GET /hotels/:: Internal server error \n", err);
+        return response.status(500).send({msg: "Internal  Server Error"});
+    }
+})
+
 module.exports = router;

@@ -35,4 +35,54 @@ model.getUserBookings = (userId, table = DB_TABLE_BOOKINGS) => {
 	})
 };
 
+model.create = (newBooking) => {
+	return new Promise((resolve, reject) => {
+		const query = "";
+		db.query(
+			query,
+			(err, booking) => {
+				if (err) return reject(err);
+				resolve(booking);
+			}
+		)
+	});
+};
+
+model.getByID = (bookingID, userId = undefined) => {
+	return new Promise((resolve, reject) => {
+		// if userId {};
+		const query = "";
+		db.query(query, (err, booking) => {
+			if (err) return reject(err);
+			resolve(booking);
+		})
+	});
+}
+
+model.getBookingsByDates = (from, end, roomId) => {
+	return new Promise((resolve, reject) => {
+		const query = "";
+		db.query(
+			query,
+			(err, booking) => {
+				if (err) return reject(err);
+				resolve(booking);
+			}
+		)
+	});
+};
+
+model.update = () => {
+	return new Promise((resolve, reject) => {
+		const query = "";
+		db.query(
+			query,
+			(err, booking) => {
+				if (err) return reject(err);
+				resolve(booking);
+			}
+		)
+	});
+};
+
 module.exports = model;

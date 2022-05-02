@@ -4,8 +4,8 @@ const { HTTP_500 } = require('./../Utilities/http_utils');
 /**
  * ROOM
  * min_guests
- * weekEndSurge
- * festivalSurge
+ * weekend_surge
+ * festival_surge
  */
 
 
@@ -57,16 +57,16 @@ class PricingService {
         const {
             start,
             end,
-            weekEndSurge,
-            festivalSurge
+            weekend_surge,
+            festival_surge
         } = surgeInfo;
 
         let charge = 0;
         
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
             charge += Math.max(
-                this.weekend_surge(date, weekEndSurge),
-                this.festival_surge(date, festivalSurge)
+                this.weekend_surge(date, weekend_surge),
+                this.festival_surge(date, festival_surge)
             )
         };
 

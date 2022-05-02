@@ -32,4 +32,15 @@ model.getHotelsByID = (hotel_id, table = DB_TABLE_HOTEL) => {
 	})
 };
 
+model.updateHotelByID = (hotel_id, table = DB_TABLE_HOTEL) => {
+	return new Promise((resolve, reject) => {
+		const query = ``;
+
+		db.query(query, (err, hotel) => {
+			if (err) return reject(err);
+			return resolve(hotel);
+		})
+	});
+};
+
 module.exports = model;

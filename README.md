@@ -1,8 +1,5 @@
 # FINAL PROJECT ON HOTEL BOOKING APPLICATION
 
-<br/> 
-<br/>
-
 ## Team Name:
 
 Team 08 JusticeLeague
@@ -23,10 +20,12 @@ Every Friday
 
 ## Technology Stack
 
-<li> *Frontend*: ReactJS
-<li> 
+<li> **Frontend**: ReactJS
+<li> **Backend**: NodeJS and ExpressJS
+<li> **Database**: MongoDB
+<li> **Deployment**: AWS EC2
 
-# XP Core Values Implemented
+## XP Core Values Implemented
 
 
 # Tools and Languages

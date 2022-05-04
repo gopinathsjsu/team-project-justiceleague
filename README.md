@@ -1,30 +1,30 @@
-# HOTEL BOOKING APPLICATION
+# FINAL PROJECT ON HOTEL BOOKING APPLICATION
 
 <br/> 
 <br/>
-
-# Team Name and Team Members
 
 ## Team Name:
 
 Team 08 JusticeLeague
 
-
-<br/>
-
 ## Team Members:
 
 <li> Aishwarya Paruchuri ( SJSU ID: 015017639)
 <li> Anay Dilip Naik( SJSU ID: 015217358 )
-<li> Achal Rajyaguru ( SJSU ID: )
-<li> Supreet Chandrasekhar ( SJSU ID: )</li>
+<li> Achal Rajyaguru ( SJSU ID: 015958670 )
+<li> Supreet Chandrasekhar ( SJSU ID:015919566 )</li>
 <br/>
 
-# Scrum meetings schedule
 
+## Sprint Meeting
 
+Every Friday 
 <br/>
-<br/>
+
+## Technology Stack
+
+<li> *Frontend*: ReactJS
+<li> 
 
 # XP Core Values Implemented
 

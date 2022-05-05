@@ -102,7 +102,7 @@ class PricingService {
             surge_charge, 
             customer_rewards
         } = pricingDetails;
-
+        console.log("calculateRoomPrice:: Details = ", pricingDetails);
         const price = base_fare + guest_charge + surge_charge - customer_rewards
         console.log("Pricing Details =", pricingDetails, price);
         return price;

@@ -1,7 +1,7 @@
 const model = require('./../models/bookingsModel');
 const roomModel = require("./../models/roomsModel");
 const PricingService = require('./pricing_service');
-const { HTTP_404, HTTP_500, HTTP_RES } = require('./../Utilities/http_utils');
+const { HTTP_404, HTTP_500, HTTP_RES, IS_VALID_DATE } = require('./../Utilities/http_utils');
 
 class BookingService {
     /**
@@ -66,7 +66,7 @@ class BookingService {
      * @param {*} hotelId 
      * @returns 200 A successful booking 
      */
-    async bookRoomForUser(userId, roomId, hotelId, bookingInfo) {
+    async bookRoomForUser(userId, roomId, bookingInfo) {
         try {
             // TODO: Validate booking information
             const {
@@ -76,33 +76,45 @@ class BookingService {
                 ammenities
             } = bookingInfo;
 
+            if (!IS_VALID_DATE(start) && !IS_VALID_DATE(end)) {
+                return HTTP_RES(400, "Invalid date format");
+            };
+
             // Assert room can be booked
             const existingBooking = await model.getBookingsByDates(start, end, roomId)
-            if (existingBooking) {
+            if (Array.isArray(existingBooking) && existingBooking.length > 0) {
                 return HTTP_RES(400, "Room Booking Exists");
             };
             
             // (a) Validate room exists (b) and is not booked
-            const roomObject = await roomModel.getRoomsByRoomID(hotelId, roomId);
-            if (!roomObject) return HTTP_404("No such room");
+            const rooms = await roomModel.getRoomsByRoomID(roomId);
+            if (!Array.isArray(rooms) || rooms.length == 0) return HTTP_404("No such room");
 
-            const { min_guests, guest_fee, weekend_surge, festival_surge } = roomObject;
+            const [ roomObject ] = rooms;
+            const { min_guests, guest_fee, week_end_surge, festival_surge, base_price } = roomObject;
             
             // Calculate price for the room
-            const finalPrice = PricingService.calculateRoomPrice(
-                PricingService.guest_charge({ total_guests, min_guests, guest_fee}),
-                PricingService.surge_charge({ start, end, weekend_surge, festival_surge}),
-                PricingService.customer_rewards()
-            );
-
-            const newBooking = await model.create({
-                roomId,
-                userId,
-                ammenities,
-                price: finalPrice,
+            const finalPrice = PricingService.calculateRoomPrice({
+                base_fare: PricingService.get_base_fare(base_price, start, end),
+                guest_charge: PricingService.guest_charge({ total_guests, min_guests, guest_fee}),
+                surge_charge: PricingService.surge_charge({ start, end, week_end_surge, festival_surge}),
+                customer_rewards: PricingService.customer_rewards()
             });
 
-            return HTTP_RES(200, "Success", newBooking);
+            const startDateString = new Date(start).toISOString();
+            const endDateString = new Date(end).toISOString();
+            await model.create(
+                userId,
+                roomId,
+                finalPrice,
+                startDateString.replace('Z', ''),
+                endDateString.replace('Z', ''),
+                total_guests,
+                "created"
+            );
+
+            const newlyCreatedBooking = await model.getBookingsByDates(start, end, roomId)
+            return HTTP_RES(200, "Success", newlyCreatedBooking);
 
         } catch(e) {
             console.error("BookingService::bookRoomForUser::Uncaught exception\n", e);
@@ -113,18 +125,24 @@ class BookingService {
     async updateBooking(userId, bookingId, request) {
         try {
             let booking = await model.getByID(userId, bookingId);
-            if (!booking) return HTTP_404("No such booking");
+            if (Array.isArray(booking) && booking.length == 0) return HTTP_404("No such booking");
 
             // Assert room can be booked
             const { start, end } = request;
-            const existingBooking = await model.getBookingsByDates(start, end, roomId)
+            if (IS_VALID_DATE(start) || !IS_VALID_DATE(end)) {
+                return HTTP_RES(400, "Invalid dates");
+            };
 
-            if (existingBooking) {
+            const existingBooking = await model.getBookingsByDates(start, end, roomId)
+            if (Array.isArray(existingBooking) && existingBooking.length > 0) {
                 return HTTP_RES(400, "Room Booking Exists");
             };
             
-            booking = { ...booking, ...request };
-            const updated = await model.update();
+            const UPDATE_QUERY = `
+                from_date= ${new Date(start).toISOString().replace("Z", "")}
+                 to_date = ${new Date(end).toISOString().replace("Z", "")}
+            `;
+            const updated = await model.updateByID(bookingId, UPDATE_QUERY);
             return HTTP_RES(200, "Success", updated);
 
         } catch(err) {
@@ -138,8 +156,10 @@ class BookingService {
             let booking = await model.getByID(userId, bookingId);
             if (!booking) return HTTP_404("No such booking");
 
-            // booking["status"] = False
-            const updated = await model.update();
+            const DELETE_QUERY = `
+                status=cancelled
+            `;
+            const updated = await model.updateByID(bookingId, DELETE_QUERY);
             return HTTP_RES(200, "Success", updated);
         } catch(err) {
             console.error("BookingService::cancelBooking::Uncaught exception\n", err);
@@ -149,12 +169,8 @@ class BookingService {
 
     async estimatePrice(roomId, start, end, total_guests = 0) {
 
-        const startDate = new Date(start);
-        const endDate = new Date(end);
-
-        if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
-            console.log(startDate, endDate, start, end);
-            return HTTP_RES(400, "Invalid dates");
+        if (!IS_VALID_DATE(start) && !IS_VALID_DATE(end)) {
+            return HTTP_RES(400, "Invalid date format");
         };
 
         const rooms = await roomModel.getRoomsByRoomID(roomId);

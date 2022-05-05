@@ -16,8 +16,18 @@ function HTTP_RES(status = 500, msg = "error", data = undefined, errors = undefi
     };
 };
 
+function IS_VALID_DATE(dt) {
+    if (!dt) return false;
+
+    const date = new Date(dt);
+    if (Number.isNaN(date.getTime())) return false;
+
+    return true;
+};
+
 module.exports = {
     HTTP_500,
     HTTP_RES,
-    HTTP_404
+    HTTP_404,
+    IS_VALID_DATE
 }

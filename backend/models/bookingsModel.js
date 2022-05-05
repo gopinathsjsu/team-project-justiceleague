@@ -2,19 +2,14 @@ const db = require("../dbConnection");
 const DB_TABLE_BOOKINGS = process.env.DB_TABLE_BOOKINGS || 'bookings';
 const model = {};
 
-const getBookingsQuery = ((ownerId, table) => {
-	return `
-		SELECT *
-		FROM ${table}
-		WHERE owner_id = ${ownerId}
-		`
-	;
-});
-
-model.getHotelBookings = (hotelId, table = DB_TABLE_BOOKINGS) => {
+model.getHotelBookings = (table = DB_TABLE_BOOKINGS) => {
 	return new Promise((resolve, reject) => {
+		const query = `
+			SELECT *
+			FROM ${table}
+		`;
 		db.query(
-			getBookingsQuery(hotelId, table), 
+			query, 
 			(err, results) => {
 				if (err) return reject(err);
 				return resolve(results);
@@ -25,8 +20,14 @@ model.getHotelBookings = (hotelId, table = DB_TABLE_BOOKINGS) => {
 
 model.getUserBookings = (userId, table = DB_TABLE_BOOKINGS) => {
 	return new Promise((resolve, reject) => {
+		const query = `
+			SELECT *
+			FROM ${table}
+			WHERE user_id = '${userId}'
+		`
+		;
 		db.query(
-			getBookingsQuery(userId, table), 
+			query,
 			(err, hotel) => {
 				if (err) return reject(err);
 				return resolve(hotel);
@@ -35,9 +36,27 @@ model.getUserBookings = (userId, table = DB_TABLE_BOOKINGS) => {
 	})
 };
 
-model.create = (newBooking) => {
+model.create = (
+	user_id,
+	room_id,
+	price,
+	from_date,
+	to_date,
+	guest_count,
+	status, 
+	table = DB_TABLE_BOOKINGS
+	) => {
 	return new Promise((resolve, reject) => {
-		const query = "";
+		const query = `
+			INSERT
+			INTO ${table} 
+			(room_id, user_id, price, from_date, to_date, guest_count, status)
+			VALUES 
+			('${room_id}', '${user_id}', '${price}', '${from_date}', '${to_date}', '${guest_count}', '${status}');
+		`;
+
+		console.info("QQ", query);
+
 		db.query(
 			query,
 			(err, booking) => {
@@ -59,9 +78,16 @@ model.getByID = (bookingID, userId = undefined) => {
 	});
 }
 
-model.getBookingsByDates = (from, end, roomId) => {
+// Referred to 
+// https://stackoverflow.com/questions/19743829/mysql-check-if-two-date-range-overlap-with-input
+// For checking overlap of two date pairs
+model.getBookingsByDates = (bookingStart, bookingEnd, roomId, table = DB_TABLE_BOOKINGS) => {
 	return new Promise((resolve, reject) => {
-		const query = "";
+		const query = `
+		SELECT *
+		FROM ${table}
+		WHERE (to_date > '${new Date(bookingStart).toISOString()}' AND from_date < '${new Date(bookingEnd).toISOString()}' AND room_id = '${roomId}')
+		`;
 		db.query(
 			query,
 			(err, booking) => {
@@ -72,9 +98,13 @@ model.getBookingsByDates = (from, end, roomId) => {
 	});
 };
 
-model.update = () => {
+model.updateByID = (booking_id, spaceSeperatedUpdateQueryString, table = DB_TABLE_BOOKINGS) => {
 	return new Promise((resolve, reject) => {
-		const query = "";
+		const query = `
+			UPDATE ${table}
+			SET ${spaceSeperatedUpdateQueryString}
+			WHERE id = '${booking_id}'
+		`;
 		db.query(
 			query,
 			(err, booking) => {

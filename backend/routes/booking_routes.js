@@ -31,11 +31,11 @@ router.get("/users/:userId", async(request, response) => {
 
 // Make a booking as a user
 router.post("/rooms/:room_id", async(request, response) => {
-    const { headers, params, body } = request;
-    const { userId } = headers;
-    const { hotel_id, room_id } = params;
+    const { params, body } = request;
+    const { room_id } = params;
     try {
-        const { status, ...data } = await booking_service.bookRoomForUser(userId, room_id, hotel_id, body);
+        const userId = 0;
+        const { status, ...data } = await booking_service.bookRoomForUser(userId, room_id, body);
         return response.status(status).send({...data});
     } catch(err) {
         console.error(`BookingRoutes::POST /bookings/hotels/${hotel_id}/rooms/${room_id}:: Internal server error \n ${err}`);

@@ -8,7 +8,7 @@ model.ROOM_ACCOMODATION = {
 	'suites': 4
 };
 
-model.getRoomsByRoomID = (hotelId, roomId, table = DB_TABLE_ROOMS) => {
+model.getRoomsByRoomID = (roomId, table = DB_TABLE_ROOMS) => {
 	return new Promise((resolve, reject) => {
 		const query = `
 			SELECT *
@@ -16,6 +16,8 @@ model.getRoomsByRoomID = (hotelId, roomId, table = DB_TABLE_ROOMS) => {
 			WHERE id = '${roomId}'
 			`
 		;
+
+		console.info("Query = ", query);
 		db.query(query, (err, results) => {
 			if (err) return reject(err);
 			return resolve(results);
@@ -23,14 +25,15 @@ model.getRoomsByRoomID = (hotelId, roomId, table = DB_TABLE_ROOMS) => {
 	});
 };
 
-model.getRoomsByHotelID = (hotelId, table = DB_TABLE_ROOMS) => {
+model.getRooms = (table = DB_TABLE_ROOMS) => {
 	return new Promise((resolve, reject) => {
 		const query = `
 			SELECT * 
 			FROM ${table}
-			WHERE hotel_id = '${hotelId}'
 		`
 		;
+
+		console.info("QUERY =", query);
 
 		db.query(query, (err, hotel) => {
 			if (err) return reject(err);

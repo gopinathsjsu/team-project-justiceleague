@@ -11,6 +11,19 @@ class BookingService {
 
     constructor() {
         this.FETCHED_BOOKINGS =  "Fetched Bookings";
+        this.AMMENITIES = {
+            breakfast: "Breakfast",
+            fitness_room: "Fitness Room",
+            parking: "Parking",
+            pool: "Pool",
+            all_meals: "All meals"
+        };
+
+        this.ROOM_TYPES = {
+            single: "Single",
+            double: "Double",
+            suite: "Suite"
+        };
     };
 
     async getHotelBookings(hotelId) {
@@ -133,6 +146,56 @@ class BookingService {
             return HTTP_500();
         }
     };
+
+    async estimatePrice(roomId, start, end, total_guests = 0) {
+
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+
+        if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+            console.log(startDate, endDate, start, end);
+            return HTTP_RES(400, "Invalid dates");
+        };
+
+        const rooms = await roomModel.getRoomsByRoomID(roomId);
+        if (!(Array.isArray(rooms) && rooms.length > 0))
+            return HTTP_RES(404, "Unable to find room");
+
+        const [ roomObject ] = rooms;
+        const { base_price, min_guests, guest_fee, week_end_surge, festival_surge } = roomObject;
+            
+        // Calculate price for the room
+        const finalPrice = PricingService.calculateRoomPrice({
+            base_fare: PricingService.get_base_fare(base_price, start, end),
+            guest_charge: PricingService.guest_charge({ total_guests, min_guests, guest_fee}),
+            surge_charge: PricingService.surge_charge({ start, end, week_end_surge, festival_surge}),
+            customer_rewards: PricingService.customer_rewards()
+        });
+
+        return HTTP_RES(
+            200,
+            "Estimated Price",
+            { finalPrice }
+        )
+    };
+
+    async getAmmenities() {
+        return HTTP_RES(
+            200,
+            "Success",
+            this.AMMENITIES
+        )
+    };
+
+    async getRoomTypes() {
+        return HTTP_RES(
+            200,
+            "Success",
+            this.ROOM_TYPES
+        )
+    };
+
+
 };
 
 module.exports = BookingService;

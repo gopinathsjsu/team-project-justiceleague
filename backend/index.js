@@ -12,11 +12,11 @@ const corsConfig = {
 app.use(cors(corsConfig));
 
 const apiRouter = require("./routes/routes");
-const hotelRouter = require('./routes/hotel_routes');
+const roomRouter = require('./routes/room_routes');
 const bookingsRouter = require('./routes/booking_routes');
 
 app.use("/", apiRouter);
-app.use("/hotels", hotelRouter);
+app.use("/rooms", roomRouter);
 app.use("/bookings", bookingsRouter);
 
 app.listen(process.env.PORT || 3000, () => {

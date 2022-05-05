@@ -8,7 +8,6 @@ const { HTTP_500 } = require('./../Utilities/http_utils');
  * festival_surge
  */
 
-
 class PricingService {
     static guest_charge(guestInfo) {
         const { 
@@ -16,6 +15,8 @@ class PricingService {
             min_guests,
             guest_fee
         } = guestInfo;
+
+        console.info("Guest info = ", guestInfo);
 
         return Math.min(
             0, 
@@ -26,6 +27,7 @@ class PricingService {
     static weekend_surge(date, surge) {
         const nd = new Date(date);
         if (nd.getDay() === 0 ||  nd.getDay() === 6) {
+            // console.log("Weekend surge = ", surge);
             return surge;
         };
         return 0;
@@ -49,6 +51,7 @@ class PricingService {
         const nd = new Date(date);
         const festival = `${nd.getMonth()/nd.getDate()}`;
 
+        // console.log("Festival Surge = ", surge);
         if (festival in FESTIVALS) return surge;
         return 0;
     };
@@ -57,19 +60,22 @@ class PricingService {
         const {
             start,
             end,
-            weekend_surge,
+            week_end_surge,
             festival_surge
         } = surgeInfo;
 
         let charge = 0;
+        const startDate = new Date(start);
+        const endDate = new Date(end);
         
-        for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+        for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
             charge += Math.max(
-                this.weekend_surge(date, weekend_surge),
+                this.weekend_surge(date, week_end_surge),
                 this.festival_surge(date, festival_surge)
             )
         };
 
+        console.log("Total Surge = ", charge);
         return charge; 
     };
 
@@ -77,19 +83,29 @@ class PricingService {
         return 0;
     };
 
-    static calculateRoomPrice(base_price, pricingDetails) {
+    static get_base_fare(base_price, start, end) {
+        let fare = 0;
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+
+        for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+            fare += base_price
+        };
+
+        return fare;
+    };
+
+    static calculateRoomPrice(pricingDetails) {
         const {
+            base_fare,
             guest_charge, 
             surge_charge, 
             customer_rewards
         } = pricingDetails;
 
-        return (
-            base_price + 
-            guest_charge + 
-            surge_charge - 
-            customer_rewards
-        );
+        const price = base_fare + guest_charge + surge_charge - customer_rewards
+        console.log("Pricing Details =", pricingDetails, price);
+        return price;
     };
 };
 

@@ -1,35 +1,26 @@
 const model = require('./../models/roomsModel');
 const { HTTP_500, HTTP_RES } = require('./../Utilities/http_utils');
 class RoomService {
-    async getRooms(hotelId) {
+    async getRooms(roomId) {
         try {
-            const rooms = await model.getRoomsByHotelID(hotelId);
+            const rooms = (roomId === undefined) ?
+                await model.getRooms()
+                : 
+                await model.getRoomsByRoomID(roomId);
+            ;
+            
             return {
                 status: 200,
                 data: rooms,
                 msg: `Fetched rooms`
             };
         } catch(err) {
-            console.error(`RoomService::getRooms/${hotelId}::Uncaught exception\n, ${err}`);
+            console.error(`RoomService::getRooms/${roomId}::Uncaught exception\n, ${err}`);
             return HTTP_500();
         };
     };
 
-    async getRoomsByID(hotelId, roomId) {
-        try {
-            const rooms = await model.getRoomsByRoomID(hotelId, roomId);
-            return {
-                status: 200,
-                data: rooms,
-                msg: `Fetched rooms`
-            };
-        } catch(err) {
-            console.error(`RoomService::getRooms/${hotelId}::Uncaught exception\n, ${err}`);
-            return HTTP_500();
-        };
-    };
-
-    async createRoom(hotel_id, newRoomObj) {
+    async createRoom(newRoomObj) {
         const {
             name, basePrice, roomType, minGuests, weekEndSurge, festivalSurge 
         } = newRoomObj;
@@ -40,7 +31,6 @@ class RoomService {
 
         const newRoomObject = {
             id: new Date().getTime() % 100000,
-            hotel_id,
             name,
             base_price: basePrice,
             room_type: roomType,
@@ -49,25 +39,22 @@ class RoomService {
             festival_surge: festivalSurge || 0
         };
 
-        const newRoom = await model.create(
+        await model.create(
             model.createRoomFactory(newRoomObject)
         );
 
-        return HTTP_RES(200, "Success", newRoom);
+        const response = await model.getRoomsByRoomID(newRoomObject.id);
+        return HTTP_RES(200, "Success", response);
     };
 
-    async update(hotelId, roomId, updateObj) {
+    async update(roomId, updateObj) {
         // @TODO: Authorization
-        const rooms = await model.getRoomsByRoomID(hotelId, roomId);
+        const rooms = await model.getRoomsByRoomID(roomId);
         if (!(Array.isArray(rooms) && rooms.length > 0)) 
             return HTTP_RES(404, "No room found");
 
         const { name, basePrice, minGuests, weekEndSurge, festivalSurge } = updateObj;
         const [ room ] = rooms;
-
-        if (room.hotel_id != hotelId) {
-            return HTTP_RES(403, "Forbidden");
-        };
 
         await model.updateByID(
             roomId,
@@ -80,7 +67,7 @@ class RoomService {
             )
         )
 
-        const updated = await model.getRoomsByRoomID(hotelId, roomId);
+        const updated = await model.getRoomsByRoomID(roomId);
         return HTTP_RES(200, "Success", updated);
     };
 };

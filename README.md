@@ -50,27 +50,27 @@ simple and elegant design that is easier to maintain and revise.
 
 ### Customer
 
-• can register for the hotel
-• can login for the hotel
-• search for hotel rooms from chains of the hotel
-• can create a reservation
-• can update the hotel
-• can see promo codes available for season
-• can filter according to needs
-• can select froma  set of amanities available in the hotel
-• can update the reservation
-• can checkout of the hotel room
-• confirm booking and select a payment method
-• can select a checkin and checkout date
-• can select a type of hotel room from all the available rooms
+<li> can register for the hotel
+<li>can login for the hotel
+<li>search for hotel rooms from chains of the hotel
+<li>can create a reservation
+<li>can update the hotel
+<li>can see promo codes available for season
+<li>can filter according to needs
+<li>can select froma  set of amanities available in the hotel
+<li>can update the reservation
+<li>can checkout of the hotel room
+<li>confirm booking and select a payment method
+<li>can select a checkin and checkout date
+<li>can select a type of hotel room from all the available rooms
 
 ### Admin
-• can check the profile of all the people who booked the hotel
-• can edit the hotel room features
-• can add more bookings
-can checkout users
-can change the staying period of a customer
-can add images and more features to each room
-can logout of the admin module
-can add rooms in different location of the hotel chain
+<li>can check the profile of all the people who booked the hotel
+<li>can edit the hotel room features
+<li>can add more bookings
+<li>can checkout users
+<li>can change the staying period of a customer
+<li>can add images and more features to each room
+<li>can logout of the admin module
+<li>can add rooms in different location of the hotel chain
 

@@ -73,4 +73,24 @@ simple and elegant design that is easier to maintain and revise.
 <li>can add images and more features to each room
 <li>can logout of the admin module
 <li>can add rooms in different location of the hotel chain
+  
+  ## Use Case Diagram
+  ![use_case_diagram](https://user-images.githubusercontent.com/45312477/167570893-3be66308-1e14-4d66-ad9c-e4ac54436b2b.jpg)
+  
+  
+  ## Activity Diagram
+  ![activity_diagram_202](https://user-images.githubusercontent.com/45312477/167570934-a1e5abe0-0566-4bf6-97a1-9c6ec3a091a8.jpg)
+  
+  ## State Diagram
+  ![state_diagram_202](https://user-images.githubusercontent.com/45312477/167570966-9bc0d5d2-db3d-4ae9-bac5-fa899b7f700b.jpg)
+  
+  ## Architecture Diagram
+  ![architecture_diagram_202](https://user-images.githubusercontent.com/45312477/167571013-f7a63890-4166-44ca-aaf0-37b1af80952a.jpg)
+
+  
+
+  
+
+  
+
 

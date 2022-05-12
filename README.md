@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS customers (
     password varchar(50) not null,
     first_name varchar(50) not null,
     last_name varchar(50) not null,
-    <!-- address varchar(100) , -->
     active int(1),
     created_at timestamp default_value=current_timestamp
     modified_at timestamp

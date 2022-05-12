@@ -24,6 +24,8 @@ model.getUserBookings = (userId, table = DB_TABLE_BOOKINGS) => {
 			SELECT *
 			FROM ${table}
 			WHERE user_id = '${userId}'
+			AND
+			status IN ('confirmed', 'created')
 		`
 		;
 		db.query(
@@ -55,8 +57,6 @@ model.create = (
 			('${room_id}', '${user_id}', '${price}', '${from_date}', '${to_date}', '${guest_count}', '${status}');
 		`;
 
-		console.info("QQ", query);
-
 		db.query(
 			query,
 			(err, booking) => {
@@ -67,10 +67,15 @@ model.create = (
 	});
 };
 
-model.getByID = (bookingID, userId = undefined) => {
+model.getByID = (bookingID, userId, table = DB_TABLE_BOOKINGS) => {
 	return new Promise((resolve, reject) => {
 		// if userId {};
-		const query = "";
+
+		const query = `
+			SELECT *
+			FROM ${table}
+			WHERE id = '${bookingID}'
+		`;
 		db.query(query, (err, booking) => {
 			if (err) return reject(err);
 			resolve(booking);
@@ -81,12 +86,16 @@ model.getByID = (bookingID, userId = undefined) => {
 // Referred to 
 // https://stackoverflow.com/questions/19743829/mysql-check-if-two-date-range-overlap-with-input
 // For checking overlap of two date pairs
-model.getBookingsByDates = (bookingStart, bookingEnd, roomId, table = DB_TABLE_BOOKINGS) => {
+// // WHERE (to_date > '${new Date(bookingStart).toISOString()}' AND from_date < '${new Date(bookingEnd).toISOString()}' AND room_id = '${roomId}')
+model.getBookingsByDates = (startDate, endDate, roomId, table = DB_TABLE_BOOKINGS) => {
 	return new Promise((resolve, reject) => {
+		const bookingStart = startDate.toISOString().replace("Z", "");
+		const bookingEnd = endDate.toISOString().replace("Z", "");
+
 		const query = `
 		SELECT *
 		FROM ${table}
-		WHERE (to_date > '${new Date(bookingStart).toISOString()}' AND from_date < '${new Date(bookingEnd).toISOString()}' AND room_id = '${roomId}')
+		WHERE (to_date > '${bookingStart}' AND from_date < '${bookingEnd}' AND room_id = '${roomId}')
 		`;
 		db.query(
 			query,
@@ -103,8 +112,7 @@ model.updateByID = (booking_id, spaceSeperatedUpdateQueryString, table = DB_TABL
 		const query = `
 			UPDATE ${table}
 			SET ${spaceSeperatedUpdateQueryString}
-			WHERE id = '${booking_id}'
-		`;
+			WHERE id = '${booking_id}'`;
 		db.query(
 			query,
 			(err, booking) => {

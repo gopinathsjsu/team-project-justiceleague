@@ -26,9 +26,9 @@ class BookingService {
         };
     };
 
-    async getHotelBookings(hotelId) {
+    async getHotelBookings() {
         try {
-            const bookings = await model.getHotelBookings(hotelId);
+            const bookings = await model.getHotelBookings();
             return {
                 status: 200,
                 data: bookings,
@@ -79,9 +79,9 @@ class BookingService {
             if (!IS_VALID_DATE(start) && !IS_VALID_DATE(end)) {
                 return HTTP_RES(400, "Invalid date format");
             };
-
+            
             // Assert room can be booked
-            const existingBooking = await model.getBookingsByDates(start, end, roomId)
+            const existingBooking = await model.getBookingsByDates(new Date(start), new Date(end), roomId)
             if (Array.isArray(existingBooking) && existingBooking.length > 0) {
                 return HTTP_RES(400, "Room Booking Exists");
             };
@@ -101,19 +101,17 @@ class BookingService {
                 customer_rewards: PricingService.customer_rewards()
             });
 
-            const startDateString = new Date(start).toISOString();
-            const endDateString = new Date(end).toISOString();
             await model.create(
                 userId,
                 roomId,
                 finalPrice,
-                startDateString.replace('Z', ''),
-                endDateString.replace('Z', ''),
+                new Date(start),
+                new Date(end),
                 total_guests,
-                "created"
+                "confirmed"
             );
 
-            const newlyCreatedBooking = await model.getBookingsByDates(start, end, roomId)
+            const newlyCreatedBooking = await model.getBookingsByDates(startDateString, endDateString, roomId)
             return HTTP_RES(200, "Success", newlyCreatedBooking);
 
         } catch(e) {
@@ -124,26 +122,43 @@ class BookingService {
 
     async updateBooking(userId, bookingId, request) {
         try {
-            let booking = await model.getByID(userId, bookingId);
-            if (Array.isArray(booking) && booking.length == 0) return HTTP_404("No such booking");
+            const bookings = await model.getByID(bookingId);
+            if (Array.isArray(bookings) && bookings.length == 0) {
+                console.error("BookingService::UpdateBooking:: Not such booking", bookingId);
+                return HTTP_404("No such booking");
+            };
+
+            let [ booking ] = bookings;
+            if (booking.user_id != userId) {
+                console.error("BookingService::UpdateBooking:: Booking user != authenticated user ", booking.user_id, userId );
+                return HTTP_RES(403, "You are not allowed to do this");
+            };
 
             // Assert room can be booked
             const { start, end } = request;
-            if (IS_VALID_DATE(start) || !IS_VALID_DATE(end)) {
+            if (!IS_VALID_DATE(start) || !IS_VALID_DATE(end)) {
+                console.error("BookingService::UpdateBooking:: Invalid date(s) ", start, end );
                 return HTTP_RES(400, "Invalid dates");
             };
 
-            const existingBooking = await model.getBookingsByDates(start, end, roomId)
+
+            const existingBooking = await model.getBookingsByDates(new Date(start), new Date(end), booking.room_id)
             if (Array.isArray(existingBooking) && existingBooking.length > 0) {
+                console.error("BookingService::UpdateBooking:: Booking exists", start, end, booking );
                 return HTTP_RES(400, "Room Booking Exists");
             };
             
             const UPDATE_QUERY = `
-                from_date= ${new Date(start).toISOString().replace("Z", "")}
-                 to_date = ${new Date(end).toISOString().replace("Z", "")}
-            `;
-            const updated = await model.updateByID(bookingId, UPDATE_QUERY);
-            return HTTP_RES(200, "Success", updated);
+                from_date= '${new Date(start).toISOString().replace("Z", "")}',
+                to_date = '${new Date(end).toISOString().replace("Z", "")}'
+            `
+            ;
+
+            booking.from_date = new Date(start);
+            booking.to_date = new Date(end);
+
+            await model.updateByID(bookingId, UPDATE_QUERY);
+            return HTTP_RES(200, "Success", booking);
 
         } catch(err) {
             console.error("BookingService::updateBooking::Uncaught exception\n", err);
@@ -151,16 +166,28 @@ class BookingService {
         }
     };
 
-    async cancelBooking(userId, bookingId) {
+    async cancelBooking(bookingId, userId, ) {
         try {
-            let booking = await model.getByID(userId, bookingId);
-            if (!booking) return HTTP_404("No such booking");
+            const bookings = await model.getByID(bookingId);
+            if (Array.isArray(bookings) && bookings.length == 0) {
+                console.error("BookingService::cancelBooking:: No such booking", bookingId);
+                return HTTP_404("No such booking");
+            };
+
+            let [ booking ] = bookings;
+
+            if (booking.user_id != userId) {
+                console.error("BookingService::cancelBooking:: Booking user != authenticated user ", booking.user_id, userId );
+                return HTTP_RES(403, "You are not allowed to do this");
+            };
 
             const DELETE_QUERY = `
-                status=cancelled
+                status='cancelled'
             `;
+
+            booking.status = "cancelled";
             const updated = await model.updateByID(bookingId, DELETE_QUERY);
-            return HTTP_RES(200, "Success", updated);
+            return HTTP_RES(200, "Success", booking);
         } catch(err) {
             console.error("BookingService::cancelBooking::Uncaught exception\n", err);
             return HTTP_500();
@@ -210,7 +237,6 @@ class BookingService {
             this.ROOM_TYPES
         )
     };
-
 
 };
 

@@ -3,19 +3,6 @@ const router = express.Router();
 const BookingService = require("./../services/booking_services");
 const booking_service = new BookingService();
 
-// View bookings as admin
-router.get("/admin", async(request, response) => {
-    const { params } = request;
-    const { hotelId } = params;
-    try {
-        const { status, ...data } = await booking_service.getHotelBookings(hotelId);
-        return response.status(status).send({...data});
-    } catch(err) {
-        console.error(`BookingRoutes::GET /bookings/hotels/${hotelId}:: Internal server error \n ${err}`);
-        return response.status(500).send({msg: "Internal  Server Error"});
-    }
-});
-
 // View bookings as user
 router.get("/users/:userId", async(request, response) => {
     const { params } = request;
@@ -45,8 +32,8 @@ router.post("/rooms/:room_id", async(request, response) => {
 
 // Update booking as a user
 router.put("/:booking_id", async(request, response) => {
-    const { headers, params, body } = request;
-    const { userId } = headers;
+    const { query, params, body } = request;
+    const { userId } = query;
     const { booking_id } = params;
     try {
         const { status, ...data } = await booking_service.updateBooking(userId, booking_id, body);
@@ -59,11 +46,11 @@ router.put("/:booking_id", async(request, response) => {
 
 // Cancel a booking as a user
 router.delete("/:booking_id", async(request, response) => {
-    const { headers, params } = request;
-    const { userId } = headers;
+    const { query, params } = request;
+    const { userId } = query;
     const { booking_id } = params;
     try {
-        const { status, ...data } = await booking_service.cancelBooking(userId, booking_id);
+        const { status, ...data } = await booking_service.cancelBooking(booking_id, userId);
         return response.status(status).send({...data});
     } catch(err) {
         console.error(`BookingRoutes::DELETE /bookings/${booking_id}:: Internal server error \n ${err}`);
@@ -102,5 +89,32 @@ router.get("/get-estimate", async(request, response) => {
         return response.status(500).send({msg: "Internal  Server Error"});
     }
 })
+
+/**
+ * ADMIN routes
+ */
+router.use("/", (req, res, next) => { 
+    const { headers } = req;
+    const { name, pwd } = headers;
+
+    console.log(process.env.ADMIN_USER, name)
+    console.log(process.env.ADMIN_PRIVILEGES, pwd);
+    if ((process.env.ADMIN_USER !== name || process.env.ADMIN_PRIVILEGES !== pwd))
+        return res.status(403).send("You are forbidden from performing his action");
+    next();
+});
+
+// View bookings as admin
+router.get("/admin", async(request, response) => {
+    const { params } = request;
+    const { hotelId } = params;
+    try {
+        const { status, ...data } = await booking_service.getHotelBookings(hotelId);
+        return response.status(status).send({...data});
+    } catch(err) {
+        console.error(`BookingRoutes::GET /bookings/hotels/${hotelId}:: Internal server error \n ${err}`);
+        return response.status(500).send({msg: "Internal  Server Error"});
+    }
+});
 
 module.exports = router;

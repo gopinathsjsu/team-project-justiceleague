@@ -79,7 +79,10 @@ class BookingService {
             if (!IS_VALID_DATE(start) && !IS_VALID_DATE(end)) {
                 return HTTP_RES(400, "Invalid date format");
             };
-            
+        
+            if (new Date(start) < new Date() || new Date(end) < new Date() || new Date(end) < new Date(start)) {
+                return HTTP_RES(400, "Invalid start and end dates");
+            };
             // Assert room can be booked
             const existingBooking = await model.getBookingsByDates(new Date(start), new Date(end), roomId)
             if (Array.isArray(existingBooking) && existingBooking.length > 0) {
@@ -101,17 +104,21 @@ class BookingService {
                 customer_rewards: PricingService.customer_rewards()
             });
 
+            const startDate = new Date(start);
+            const endDate = new Date(end);
+
+
             await model.create(
                 userId,
                 roomId,
                 finalPrice,
-                new Date(start),
-                new Date(end),
+                startDate,
+                endDate,
                 total_guests,
                 "confirmed"
             );
 
-            const newlyCreatedBooking = await model.getBookingsByDates(startDateString, endDateString, roomId)
+            const newlyCreatedBooking = await model.getBookingsByDates(startDate, endDate, roomId)
             return HTTP_RES(200, "Success", newlyCreatedBooking);
 
         } catch(e) {

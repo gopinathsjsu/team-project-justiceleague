@@ -4,9 +4,23 @@ const model = {};
 
 model.getHotelBookings = (table = DB_TABLE_BOOKINGS) => {
 	return new Promise((resolve, reject) => {
+		// const query = `
+		// 	SELECT * FROM ${table}
+		// 	FULL OUTER JOIN customers
+		// 	ON ${table}.user_id = customers.id
+		// 	ORDER BY customers.id
+		// `;
+
 		const query = `
-			SELECT *
-			FROM ${table}
+			SELECT 
+				b.*, 
+				c.first_name as user_first_name, c.last_name as user_last_name,
+				r.name as room_name, r.room_type as room_type
+			FROM ${table} as b
+				JOIN customers as c
+					on b.user_id = c.id
+				JOIN rooms as r
+					on b.room_id = r.id
 		`;
 		db.query(
 			query, 
@@ -21,8 +35,12 @@ model.getHotelBookings = (table = DB_TABLE_BOOKINGS) => {
 model.getUserBookings = (userId, table = DB_TABLE_BOOKINGS) => {
 	return new Promise((resolve, reject) => {
 		const query = `
-			SELECT *
-			FROM ${table}
+			SELECT 
+				b.*, 
+				r.name as room_name, r.room_type as room_type
+			FROM ${table} as b
+				JOIN rooms as r
+					on b.room_id = r.id
 			WHERE user_id = '${userId}'
 			AND
 			status IN ('confirmed', 'created')
@@ -49,6 +67,9 @@ model.create = (
 	table = DB_TABLE_BOOKINGS
 	) => {
 	return new Promise((resolve, reject) => {
+		from_date = from_date.toISOString().replace("Z", "");
+		to_date = to_date.toISOString().replace("Z", "");
+
 		const query = `
 			INSERT
 			INTO ${table} 

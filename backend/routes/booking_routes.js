@@ -1,4 +1,5 @@
 const express = require('express');
+const SSecurity = require('../services/SimpleSecurity');
 const router = express.Router();
 const BookingService = require("./../services/booking_services");
 const booking_service = new BookingService();
@@ -93,16 +94,7 @@ router.get("/get-estimate", async(request, response) => {
 /**
  * ADMIN routes
  */
-router.use("/", (req, res, next) => { 
-    const { headers } = req;
-    const { name, pwd } = headers;
-
-    console.log(process.env.ADMIN_USER, name)
-    console.log(process.env.ADMIN_PRIVILEGES, pwd);
-    if ((process.env.ADMIN_USER !== name || process.env.ADMIN_PRIVILEGES !== pwd))
-        return res.status(403).send("You are forbidden from performing his action");
-    next();
-});
+router.use("/", SSecurity.authenticate_admin);
 
 // View bookings as admin
 router.get("/admin", async(request, response) => {

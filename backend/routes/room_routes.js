@@ -1,4 +1,5 @@
 const express = require('express');
+const SSecurity  = require('../services/SimpleSecurity');
 const router = express.Router();
 const RoomService = require("./../services/room_service");
 const room_service = new RoomService();
@@ -15,7 +16,11 @@ router.get("/:room_id?", async(request, response) => {
     }
 });
 
-// Admin API(s)
+/**
+ * ADMIN routes
+ */
+router.use("/", SSecurity.authenticate_admin);
+
 router.post("/", async(request, response) => {
     const { params, body } = request;
     const { hotel_id } = params;

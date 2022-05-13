@@ -46,6 +46,14 @@ simple and elegant design that is easier to maintain and revise.
 <li> Frontend: Visual Studio Code,Atom,AdobeXD,Zeplin,Git
 <li> Backend: </li>
 
+## Steps to Run the Project
+
+1. Open your terminal and clone this github repo
+2. Open the cloned folder and delete the node modules and package-lock.json file
+3. Type npm install
+4. Type npm i
+5. Type npm start
+
 ## Features Integerated
 
 ### Customer
@@ -86,8 +94,11 @@ simple and elegant design that is easier to maintain and revise.
   
   ## Architecture Diagram
   ![architecture_diagram_202](https://user-images.githubusercontent.com/45312477/167571013-f7a63890-4166-44ca-aaf0-37b1af80952a.jpg)
-
   
+  ## Class Diagram
+  
+  [Class Diagram.pdf](https://github.com/gopinathsjsu/team-project-justiceleague/files/8684385/Class.Diagram.pdf)
+
 
   
 

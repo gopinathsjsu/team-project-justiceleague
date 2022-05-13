@@ -122,7 +122,8 @@ simple and elegant design that is easier to maintain and revise.
 <img width="1440" alt="Screen Shot 2022-05-12 at 11 20 29 PM" src="https://user-images.githubusercontent.com/45312477/168223162-a8f4202a-2854-472f-ac77-72ccff033c3b.png">
 
 
-  
+ ## Burndown charts
+[BURNDOWN CHARTS.pdf](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/BURNDOWN%20CHARTS.pdf)
 
 
 # Database Tables
@@ -256,3 +257,4 @@ CREATE TABLE IF NOT EXISTS bookings (
 
 ### View hotel bookings
 ### View user's bookings
+  

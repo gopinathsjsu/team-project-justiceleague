@@ -98,9 +98,29 @@ simple and elegant design that is easier to maintain and revise.
   ## Class Diagram
   
   [Class Diagram.pdf](https://github.com/gopinathsjsu/team-project-justiceleague/files/8684385/Class.Diagram.pdf)
-
-
   
+  ## Application Screenshots
+  
+
+
+  <img width="1440" alt="Screen Shot 2022-05-12 at 11 18 49 PM" src="https://user-images.githubusercontent.com/45312477/168223092-82c929b1-5678-4e2a-95e7-4671f0ed2120.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 18 54 PM" src="https://user-images.githubusercontent.com/45312477/168223109-ad55e180-c84f-4c17-bace-2e7523be6584.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 18 59 PM" src="https://user-images.githubusercontent.com/45312477/168223111-8df01872-739f-4000-92c2-4c308b32db62.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 02 PM" src="https://user-images.githubusercontent.com/45312477/168223112-e0e0f49b-2394-4dcc-9afb-a07d77b1e70a.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 06 PM" src="https://user-images.githubusercontent.com/45312477/168223114-89383fd4-4e52-44b9-b0b3-09827a8cc2b4.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 12 PM" src="https://user-images.githubusercontent.com/45312477/168223130-5eaa6c0d-1746-49c3-9098-23f4093e3c0c.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 17 PM" src="https://user-images.githubusercontent.com/45312477/168223131-0063242b-7b59-427d-9473-5c894cf44ad6.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 25 PM" src="https://user-images.githubusercontent.com/45312477/168223137-83711978-1c3c-4172-b61c-05e88b6bbf96.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 35 PM" src="https://user-images.githubusercontent.com/45312477/168223139-97ec18f8-8eb6-4103-8d40-0861b21487d7.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 39 PM" src="https://user-images.githubusercontent.com/45312477/168223141-7a02745f-2d68-4cd8-88a6-ca09e899364c.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 46 PM" src="https://user-images.githubusercontent.com/45312477/168223144-0967519b-bb33-4389-a21d-cdcf57de44e6.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 50 PM" src="https://user-images.githubusercontent.com/45312477/168223148-bd732ee2-fa62-45a2-801f-90bcf6477eb9.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 19 53 PM" src="https://user-images.githubusercontent.com/45312477/168223153-1145dea1-b378-4ec3-bba2-8072b48f4dcd.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 20 16 PM" src="https://user-images.githubusercontent.com/45312477/168223158-7764b390-d413-432f-9f38-64c965bed353.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 20 18 PM" src="https://user-images.githubusercontent.com/45312477/168223159-18728364-ecbc-484c-8137-2039006bc5b8.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 20 21 PM" src="https://user-images.githubusercontent.com/45312477/168223161-dc783916-4f7d-4896-8b4a-d2a9ec45a610.png">
+<img width="1440" alt="Screen Shot 2022-05-12 at 11 20 29 PM" src="https://user-images.githubusercontent.com/45312477/168223162-a8f4202a-2854-472f-ac77-72ccff033c3b.png">
+
 
   
 

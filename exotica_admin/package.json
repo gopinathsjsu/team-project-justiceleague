@@ -1,30 +1,30 @@
 {
-  "name": "hotel-booking",
+  "name": "airbnb",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "bootstrap": "^4.5.0",
-    "jquery": "^3.5.1",
-    "moment": "^2.27.0",
-    "popper.js": "^1.16.1",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.3",
+    "date-fns": "^2.0.0-beta.5",
+    "movie-trailer": "^2.0.6",
     "react": "^16.13.1",
-    "react-datepicker": "^3.1.3",
+    "react-bootstrap": "^1.4.0",
+    "react-date-range": "^1.0.3",
     "react-dom": "^16.13.1",
-    "react-icons": "^3.10.0",
-    "react-moment": "^0.9.7",
+    "react-icons": "^4.1.0",
+    "react-progress": "0.0.12",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "styled-components": "^5.1.1"
+    "react-toasts": "^3.0.6",
+    "react-youtube": "^7.11.3"
   },
   "scripts": {
-<<<<<<< HEAD
-    "start": "react-scripts  start",
-=======
     "start": "react-scripts --openssl-legacy-provider start",
->>>>>>> origin/achal-dev-admin
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

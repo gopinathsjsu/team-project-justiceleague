@@ -21,7 +21,7 @@ model.getHotelsByID = (hotel_id, table = DB_TABLE_HOTEL) => {
 		const query = `
 			SELECT * 
 			FROM ${table}
-			WHERE hotel_id = ${hotel_id}
+			WHERE id = ${hotel_id}
 		`
 		;
 
@@ -30,6 +30,31 @@ model.getHotelsByID = (hotel_id, table = DB_TABLE_HOTEL) => {
 			return resolve(hotel);
 		})
 	})
+};
+
+model.updateRequestactory = (name) => {
+	// ADDING extra SPACE after sentence 1 to delimit fields
+	const _ = `
+		name = '${name}'
+	`;
+	return _;
+}
+
+model.updateHotelByID = (hotel_id, spaceSeperatedUpdateQueryString, table = DB_TABLE_HOTEL) => {
+	return new Promise((resolve, reject) => {
+		const query = `
+			UPDATE ${table}
+			SET ${spaceSeperatedUpdateQueryString}
+			WHERE id = '${hotel_id}'
+		`;
+
+		console.info(spaceSeperatedUpdateQueryString);
+
+		db.query(query, (err, updateStatusObj) => {
+			if (err) return reject(err);
+			return resolve(updateStatusObj);
+		})
+	});
 };
 
 module.exports = model;

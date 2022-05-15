@@ -82,6 +82,13 @@ simple and elegant design that is easier to maintain and revise.
 <li>can logout of the admin module
 <li>can add rooms in different location of the hotel chain
   
+  ## Trello Screen captures
+  ![Trello1.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello1.jpeg)
+  ![Trello2.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello2.jpeg)
+  ![Trello3.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello3.jpeg)
+  ![Trello4.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello4.jpeg)
+  
+  
   ## Deployment Diagram
   ![Deployment Diagram - Page 1.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Deployment%20Diagram%20-%20Page%201.jpeg)
   

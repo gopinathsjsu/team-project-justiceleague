@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './Form.css';
 import FormSignup from './FormSignup';
-import FormLogin from './FormLogin';
-import { Link } from 'react-router-dom';
 import FormSuccess from './FormSuccess';
 import { registerUser } from "../controllers/user";
 
@@ -33,13 +31,9 @@ const Form = () => {
         </div>
         {!isSubmitted ? (
           <FormSignup submitForm={submitForm} />
-         
         ) : (
           <FormSuccess />
-          
         )}
-
-        
       </div>
     </>
   );

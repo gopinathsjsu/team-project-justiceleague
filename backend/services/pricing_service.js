@@ -1,5 +1,4 @@
-const model = require('./../models/bookingsModel');
-const { HTTP_500 } = require('./../Utilities/http_utils');
+const bookingModel = require('./../models/bookingsModel');
 
 /**
  * ROOM
@@ -79,8 +78,38 @@ class PricingService {
         return charge; 
     };
 
-    static customer_rewards() {
-        return 0;
+    /**
+     * Customer Rewards are based on the number of bookings
+     * 1 to 3 gives 0.1
+     * 3 to 5 gives 0.05
+     * 5 to 10 gives 0.03
+     * 10 to 20 gives 0.02
+     * 0.1
+     * 0.15
+     * 0.18
+     * 0.2
+     * @param {*} userId 
+     * @param {*} price 
+     * @returns 
+     */
+    static async customer_rewards(userId, price) {
+        const bookings = await bookingModel.getUserBookings(userId);
+        let rewards = 0;
+        if (Array.isArray(bookings) && bookings.length > 0) {
+            if (bookings.length  <= 3)  {
+                rewards = 0.1;
+            } else if (bookings.length <=5 ) {
+                rewards = 0.15;
+            } else if (bookings.length <= 10) {
+                rewards = 0.18;
+            } else if (bookings.length <= 20){
+                rewards = 0.20;
+            } else {
+                rewards = 0.22
+            }
+        }
+
+        return rewards * price;
     };
 
     static get_base_fare(base_price, start, end) {

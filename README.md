@@ -12,11 +12,38 @@ Team 08 JusticeLeague
 <li> Supreet Chandrasekhar ( SJSU ID:015919566 )</li>
 <br/>
 
+## Team Members Task Distribution:
 
-## Sprint Meeting
+<li> Frontend : Aishwarya Paruchuri, Achal Rajyaguru
+<li> Backend : Anay Dilip Naik, Supreeth Chandrasekhar
+<li> Deployment : Anay Dilip Naik, Supreeth Chandrasekhar
+<li> Documentation : Aishwarya Paruchuri, Achal Rajyaguru</li>
+<br/>
+
+## Sprint Meeting:
 
 Every Friday 
-<br/>
+
+## Project board:
+
+### Project Journal: https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Project_Journal.pdf
+### Project Sprint task board : https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Weekly%20Scrum%20Task%20Board.pdf
+### Project Task Board:
+![Trello1.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello1.jpeg)
+![Trello2.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello2.jpeg)
+![Trello3.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello3.jpeg)
+![Trello4.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello4.jpeg)
+  
+ ## UI Wireframes
+![Landing Page – 1](https://user-images.githubusercontent.com/45312477/168497901-a2032768-18f0-408f-abc2-9f35bebaf4a0.jpg)
+![Landing Page – 3](https://user-images.githubusercontent.com/45312477/168497906-e95a46b3-e8c8-4842-ac42-574a14446d3e.jpg)
+![Landing Page – 4](https://user-images.githubusercontent.com/45312477/168497908-51f636b4-1ced-4912-b291-5fe51ce10ff5.jpg)
+![Landing Page – 5](https://user-images.githubusercontent.com/45312477/168497910-113ccfe6-127a-425b-afb9-2f4d8c687dca.jpg)
+![Landing Page – 6](https://user-images.githubusercontent.com/45312477/168497914-4bb03b5f-d9b1-4873-af61-3333cc7a4788.jpg)
+![Landing Page](https://user-images.githubusercontent.com/45312477/168497915-c78bb03e-3c9a-40c5-8ffb-205d24860103.jpg)
+![Login](https://user-images.githubusercontent.com/45312477/168497920-8f19a83d-78a1-4999-b8cb-2b49a6c98af7.jpg)![Landing Page – 7](https://user-images.githubusercontent.com/45312477/168497924-c4c7f99f-5eff-4ddc-b876-9033fa3da53e.jpg)
+![Sign Up](https://user-images.githubusercontent.com/45312477/168497921-beac291a-f28f-4f63-9381-12fdc3e2695a.jpg)
+
 ## Technology Stack
 
 <li> Frontend: ReactJS
@@ -39,7 +66,7 @@ team members were empathetic towards others in resolving challenges. Hencé, We 
 such that everyone gets to learn everything and restrict one person to solely one aspect of programming
 <li> Simplicity: The team was always working towards delivering products with absolutely necessary features though
 which we were able to omit unnecessary development items. Even in terms of UI development, we maintained a
-simple and elegant design that is easier to maintain and revise.
+simple and elegant design that is easier to maintain and revise.</li>
 
 ## Tools
 
@@ -81,33 +108,12 @@ simple and elegant design that is easier to maintain and revise.
 <li>can add images and more features to each room
 <li>can logout of the admin module
 <li>can add rooms in different location of the hotel chain
-  
-  ## Trello Screen captures
-  ![Trello1.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello1.jpeg)
-  ![Trello2.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello2.jpeg)
-  ![Trello3.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello3.jpeg)
-  ![Trello4.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello4.jpeg)
-  
-  ## UI Wireframes
-![Landing Page – 1](https://user-images.githubusercontent.com/45312477/168497901-a2032768-18f0-408f-abc2-9f35bebaf4a0.jpg)
-![Landing Page – 3](https://user-images.githubusercontent.com/45312477/168497906-e95a46b3-e8c8-4842-ac42-574a14446d3e.jpg)
-![Landing Page – 4](https://user-images.githubusercontent.com/45312477/168497908-51f636b4-1ced-4912-b291-5fe51ce10ff5.jpg)
-![Landing Page – 5](https://user-images.githubusercontent.com/45312477/168497910-113ccfe6-127a-425b-afb9-2f4d8c687dca.jpg)
-![Landing Page – 6](https://user-images.githubusercontent.com/45312477/168497914-4bb03b5f-d9b1-4873-af61-3333cc7a4788.jpg)
-![Landing Page](https://user-images.githubusercontent.com/45312477/168497915-c78bb03e-3c9a-40c5-8ffb-205d24860103.jpg)
-![Login](https://user-images.githubusercontent.com/45312477/168497920-8f19a83d-78a1-4999-b8cb-2b49a6c98af7.jpg)![Landing Page – 7](https://user-images.githubusercontent.com/45312477/168497924-c4c7f99f-5eff-4ddc-b876-9033fa3da53e.jpg)
-
-![Sign Up](https://user-images.githubusercontent.com/45312477/168497921-beac291a-f28f-4f63-9381-12fdc3e2695a.jpg)
-
-  
-  
-  
+    
   ## Deployment Diagram
   ![Deployment Diagram - Page 1.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Deployment%20Diagram%20-%20Page%201.jpeg)
   
   ## Use Case Diagram
   ![use_case_diagram](https://user-images.githubusercontent.com/45312477/167570893-3be66308-1e14-4d66-ad9c-e4ac54436b2b.jpg)
-  
   
   ## Activity Diagram
   ![activity_diagram_202](https://user-images.githubusercontent.com/45312477/167570934-a1e5abe0-0566-4bf6-97a1-9c6ec3a091a8.jpg)
@@ -146,11 +152,3 @@ simple and elegant design that is easier to maintain and revise.
 <img width="1440" alt="Screen Shot 2022-05-12 at 11 20 18 PM" src="https://user-images.githubusercontent.com/45312477/168223159-18728364-ecbc-484c-8137-2039006bc5b8.png">
 <img width="1440" alt="Screen Shot 2022-05-12 at 11 20 21 PM" src="https://user-images.githubusercontent.com/45312477/168223161-dc783916-4f7d-4896-8b4a-d2a9ec45a610.png">
 <img width="1440" alt="Screen Shot 2022-05-12 at 11 20 29 PM" src="https://user-images.githubusercontent.com/45312477/168223162-a8f4202a-2854-472f-ac77-72ccff033c3b.png">
-
-
- ## Burndown charts
-[BURNDOWN CHARTS.pdf](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/BURNDOWN%20CHARTS.pdf)
-  
-## Project Journal
-  
-

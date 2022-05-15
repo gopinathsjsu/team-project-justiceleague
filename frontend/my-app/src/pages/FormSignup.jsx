@@ -4,6 +4,15 @@ import useForm from './useForm';
 import './Form.css';
 import { Link } from 'react-router-dom';
 
+
+//import About from './pages/About';
+//import Footer from './components/Footer';
+//import Contact from './pages/Contact';
+//import Booknow from './pages/Booknow';
+
+
+import { Link } from 'react-router-dom';
+
 const FormSignup = ({ submitForm }) => {
   const { handleChange, handleSubmit, values, errors } = useForm(
     submitForm,

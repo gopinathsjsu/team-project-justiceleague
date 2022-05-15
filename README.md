@@ -88,6 +88,19 @@ simple and elegant design that is easier to maintain and revise.
   ![Trello3.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello3.jpeg)
   ![Trello4.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Trello4.jpeg)
   
+  ## UI Wireframes
+![Landing Page – 1](https://user-images.githubusercontent.com/45312477/168497901-a2032768-18f0-408f-abc2-9f35bebaf4a0.jpg)
+![Landing Page – 3](https://user-images.githubusercontent.com/45312477/168497906-e95a46b3-e8c8-4842-ac42-574a14446d3e.jpg)
+![Landing Page – 4](https://user-images.githubusercontent.com/45312477/168497908-51f636b4-1ced-4912-b291-5fe51ce10ff5.jpg)
+![Landing Page – 5](https://user-images.githubusercontent.com/45312477/168497910-113ccfe6-127a-425b-afb9-2f4d8c687dca.jpg)
+![Landing Page – 6](https://user-images.githubusercontent.com/45312477/168497914-4bb03b5f-d9b1-4873-af61-3333cc7a4788.jpg)
+![Landing Page](https://user-images.githubusercontent.com/45312477/168497915-c78bb03e-3c9a-40c5-8ffb-205d24860103.jpg)
+![Login](https://user-images.githubusercontent.com/45312477/168497920-8f19a83d-78a1-4999-b8cb-2b49a6c98af7.jpg)![Landing Page – 7](https://user-images.githubusercontent.com/45312477/168497924-c4c7f99f-5eff-4ddc-b876-9033fa3da53e.jpg)
+
+![Sign Up](https://user-images.githubusercontent.com/45312477/168497921-beac291a-f28f-4f63-9381-12fdc3e2695a.jpg)
+
+  
+  
   
   ## Deployment Diagram
   ![Deployment Diagram - Page 1.jpeg](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Deployment%20Diagram%20-%20Page%201.jpeg)

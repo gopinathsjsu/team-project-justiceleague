@@ -31,7 +31,7 @@ function About() {
         <div className="row mb-5">
             <div className="col-md-4 col-12 mx-auto my-2">
                 <div className="card border-0 shadow-lg p-4">
-                    <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" className="card-img-top" alt="director" />
+                    <img src="https://source.unsplash.com/9UVmlIb0wJU/500x350" className="card-img-top" alt="director" />
                     <div className="card-body">
                         <h5 className="card-title mb-0">Aishwarya Paruchuri</h5>
                         <h6 className="card-title mb-0">Frontend Developer</h6>
@@ -44,7 +44,7 @@ function About() {
             
             <div className="col-md-4 col-12 mx-auto my-2">
                 <div className="card border-0 shadow-lg p-4">
-                    <img src="https://source.unsplash.com/sNut2MqSmds/500x350" className="card-img-top" alt="director" />
+                    <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" className="card-img-top" alt="director" />
                     <div className="card-body">
                         <h5 className="card-title mb-0">Anay Naik</h5>
                         <h6 className="card-title mb-0">Backend Developer</h6>
@@ -60,7 +60,7 @@ function About() {
         <div className="row mb-5">
         <div className="col-md-4 col-12 mx-auto my-2">
                 <div className="card border-0 shadow-lg p-4">
-                    <img src="https://source.unsplash.com/9UVmlIb0wJU/500x350" className="card-img-top" alt="director" />
+                    <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" className="card-img-top" alt="director" />
                     <div className="card-body">
                         <h5 className="card-title mb-0">Achal Rajyaguru</h5>
                         <h6 className="card-title mb-0">Frontend Developer</h6>
@@ -72,7 +72,7 @@ function About() {
             </div>
             <div className="col-md-4 col-12 mx-auto my-2">
                 <div className="card border-0 shadow-lg p-4">
-                    <img src="https://source.unsplash.com/9UVmlIb0wJU/500x350" className="card-img-top" alt="director" />
+                    <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" className="card-img-top" alt="director" />
                     <div className="card-body">
                         <h5 className="card-title mb-0">Supreet</h5>
                         <h6 className="card-title mb-0">Backend Developer</h6>

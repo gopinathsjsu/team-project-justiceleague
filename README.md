@@ -140,4 +140,4 @@ simple and elegant design that is easier to maintain and revise.
   
 ## Project Journal
   
-[Project Journal.pdf](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Project_Journal%20-%20Sheet1.pdf)
+

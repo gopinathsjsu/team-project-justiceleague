@@ -147,7 +147,7 @@ class BookingService {
           week_end_surge,
           festival_surge,
         }),
-        customer_rewards: PricingService.customer_rewards(),
+        customer_rewards: await PricingService.customer_rewards(userId, base_price),
       });
 
       await model.create(

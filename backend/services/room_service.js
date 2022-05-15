@@ -22,7 +22,7 @@ class RoomService {
 
     async createRoom(newRoomObj) {
         const {
-            name, basePrice, roomType, minGuests, weekEndSurge, festivalSurge 
+            name, basePrice, roomType, minGuests, weekEndSurge, festivalSurge, location, description 
         } = newRoomObj;
 
         if (!name || !basePrice || !(roomType in model.ROOM_ACCOMODATION) ) {
@@ -36,7 +36,9 @@ class RoomService {
             room_type: roomType,
             min_guests: minGuests || model.ROOM_ACCOMODATION[roomType],
             week_end_surge: weekEndSurge || 0,
-            festival_surge: festivalSurge || 0
+            festival_surge: festivalSurge || 0,
+            location,
+            description
         };
 
         await model.create(
@@ -53,7 +55,7 @@ class RoomService {
         if (!(Array.isArray(rooms) && rooms.length > 0)) 
             return HTTP_RES(404, "No room found");
 
-        const { name, basePrice, minGuests, weekEndSurge, festivalSurge } = updateObj;
+        const { name, basePrice, minGuests, weekEndSurge, festivalSurge, guestSurge } = updateObj;
         const [ room ] = rooms;
 
         await model.updateByID(
@@ -63,7 +65,8 @@ class RoomService {
                 basePrice || room.base_price,
                 minGuests || room.min_guests,
                 weekEndSurge || room.week_end_surge,
-                festivalSurge || room.festival_surge
+                festivalSurge || room.festival_surge,
+                guestSurge || room.guest_fee
             )
         )
 

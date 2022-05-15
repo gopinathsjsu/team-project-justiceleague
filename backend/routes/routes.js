@@ -78,4 +78,13 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+router.post("/admin/sign_in", (req, res) => {
+  const { body } = req;
+  const { name, pwd } = body;
+  if (process.env.ADMIN_USER === name && process.env.ADMIN_PRIVILEGES === pwd) {
+    return res.status(200).send({});
+  };
+  return res.status(400).send({});
+})
+
 module.exports = router;

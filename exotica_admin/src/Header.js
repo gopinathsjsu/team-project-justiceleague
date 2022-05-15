@@ -5,7 +5,7 @@ import {AiOutlineLogout, AiTwotoneAccountBook} from "react-icons/ai"
 
 import {useHistory} from "react-router-dom"
 import { useStateValue } from './StateProvider';
-import { actionTypes } from './reducer'
+import { sign_out } from './admin_security';
 
 
 function Header() {
@@ -13,6 +13,7 @@ function Header() {
     var history = useHistory();
  
     var logout = ()=>{
+        sign_out();
         history.push("/adminlogin")
     }
     

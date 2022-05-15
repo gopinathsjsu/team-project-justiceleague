@@ -50,7 +50,6 @@ class RoomService {
     };
 
     async update(roomId, updateObj) {
-        // @TODO: Authorization
         const rooms = await model.getRoomsByRoomID(roomId);
         if (!(Array.isArray(rooms) && rooms.length > 0)) 
             return HTTP_RES(404, "No room found");

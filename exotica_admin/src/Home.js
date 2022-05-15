@@ -1,25 +1,23 @@
-// import { Card } from '@material-ui/core'
-import React , {useEffect,useState} from 'react'
+import React , {useEffect } from 'react'
 import Banner from './Banner'
 import "./Home.css"
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import { is_signed_in } from "./admin_security";
 
-// import Card from "./Card"
-import axios from "axios"
-// rfce is a ES7 code snippet
+
 function Home() {
-
-
+    useEffect(() => {
+        if (!is_signed_in()) {
+            window.location.href = "/adminlogin";
+        } else {
+            window.location.href = "/rooms";
+        }
+    }, []);
 
     return (
         <div className="home">
-            {/* <h1>HOme</h1> */}
             <Banner />
             <div className='home_section'>
-        
             </div>
-           
-
         </div>
     )
 }

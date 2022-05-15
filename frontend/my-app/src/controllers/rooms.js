@@ -1,7 +1,7 @@
-import { semiEndpoint } from "../utils/ApiEndpoint";
+import { semiEndpoint } from "../Utils/ApiEndpoint";
 import axios from "axios";
 
 // STUB for controllers
-export function testAPI(userId, dataJson) {
-  return axios.get(semiEndpoint + "/testendpoint" + userId, dataJson);
+export function getAllRooms() {
+  return axios.get(semiEndpoint + "/rooms");
 }

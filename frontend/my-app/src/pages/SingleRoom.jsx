@@ -4,20 +4,35 @@ import Banner from '../components/Banner';
 import { Link } from 'react-router-dom';
 import { RoomContext } from '../context';
 import StyledHero from '../components/StyledHero';
+import { getAllRooms } from '../controllers/rooms';
 
 export default class SingleRoom extends Component {
     constructor (props){
         super(props);
         this.state = {
             slug: this.props.match.params.slug,
-            defaultBcg
+            defaultBcg,
+            roomDetails: null
         };
     }
     static contextType = RoomContext;
+
+    componentDidMount(){
+        getAllRooms().then(res=>{
+            res.data.data.map(item=>{
+                if(parseInt(this.state.slug) === item.id){
+                    this.setState({roomDetails: item});
+                }
+            })
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+
     render() {
         const { getRoom } = this.context;
         const room = getRoom(this.state.slug);
-        if(!room){
+        if(!this.state.roomDetails){
             return (<div className="container roomerror">
                     <div className="row my-5">
                         <div className="col-md-6 col-12 mx-auto">
@@ -30,11 +45,12 @@ export default class SingleRoom extends Component {
                     </div>
                 </div>);
         }
-        const {name,description,capacity,size,price,extras,breakfast,pets,images,gym,swimmingpool,parking} = room;
-        const [mainImg, ...defaultBcg] = images;
+        console.log("roomDetails: ", this.state.roomDetails);
+        const {name, base_price, amenities, min_guests, pets, breakfast} = this.state.roomDetails;
+        // const [mainImg, ...defaultBcg] = images;
         return (
             <>
-            <StyledHero img={mainImg || this.state.defaultBcg }>
+            <StyledHero img={this.state.defaultBcg }>
            
             <Banner title={`${name} room`}>
                     <Link to="/rooms" className="btn btn-primary">Back To Rooms</Link>
@@ -42,27 +58,26 @@ export default class SingleRoom extends Component {
             </StyledHero>
             <section className="single-room container">
                <div className="row">
-                    {defaultBcg.map((item,index) => {
+                    {/* {defaultBcg.map((item,index) => {
                         return (
                         <div className="col-md-4 col-12 mx-auto" key={index}>
                             <div className="card border-0 shadow-lg">
                                <img key={index} src={item} alt={name} className="img-fluid" />
                             </div>
                         </div>)
-                    })}
+                    })} */}
                </div>
                <div className="single-room-info">
                    <article className="desc">
                       <h3>Details</h3>
-                      <p>{description}</p>
+                      <p>Test Desc</p>
                    </article>
                    <article className="info">
                       <h3>Info</h3>
-                      <h6>price : Rs{price}</h6>
-                      <h6>size  : {size} SQFT</h6>
+                      <h6>price : ${base_price}</h6>
                       <h6>
-                          max capacity : {" "}
-                              {capacity > 1 ? `${capacity} people`: `${capacity} person`}
+                          min guests : {" "}
+                              {min_guests > 1 ? `${min_guests} people`: `${min_guests} person`}
                       </h6>
                       <h6>{pets? 'pets allowed': 'no pets allowed'}</h6>
                       <h6>{breakfast && "free breakfast included"}</h6>
@@ -72,7 +87,7 @@ export default class SingleRoom extends Component {
             <section className="room-extras">
                 <h3>Extras</h3>
                 <ul className="extras">
-                    {extras.map((item,index) => {
+                    {amenities && amenities.map((item,index) => {
                           return <li key={index}>{item}</li>
                     })}
                 </ul>

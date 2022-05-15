@@ -5,7 +5,7 @@ import moment from 'moment';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import defaultBcg from '../images/room-3.jpeg';
-
+import { getAllRooms } from '../controllers/rooms';
 
 export default class Booknow extends Component {
     constructor (props){
@@ -15,34 +15,69 @@ export default class Booknow extends Component {
         defaultBcg,
         startDate: new Date(),
         endDate: new Date(),
+        amenities: [],
+        roomDetails: null,
+        totalGuests: 1
     };
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
     this.handleChangeStart = this.handleChangeStart.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.onQtyChange = this.onQtyChange.bind(this);
     }
     
-    handleChangeStart(date) {
+    componentDidMount(){
+        getAllRooms().then(res=>{
+            res.data.data.map(item=>{
+                if(parseInt(this.state.slug) === item.id){
+                    this.setState({roomDetails: item});
+                }
+            })
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+
+    handleChange = (event) => {
+        const target = event.target;
+        const value = target.type === "checkbox" ? target.checked : target.value;
+        const name = event.target.name;
+    };
+
+    handleChangeStart(e, date) {
+        e.preventDefault();
+        console.log(date)
         this.setState({
-        startDate: date
+            startDate: date
         });
     }
+
     handleChangeEnd(date) {
         this.setState({
-        endDate: date
+            endDate: date
         });
     }
+
     calculateDaysLeft(startDate, endDate) {
         if (!moment.isMoment(startDate)) startDate = moment(startDate);
         if (!moment.isMoment(endDate)) endDate = moment(endDate);
         return endDate.diff(startDate, "days");
     }
     
+    onQtyChange = (value) => {
+        this.setState({
+            totalGuests: value
+        })
+      };
+
     static contextType = RoomContext;
+
     render() {
         const { getRoom } = this.context;
         const room = getRoom(this.state.slug);
         const { startDate, endDate } = this.state;
         const daysLeft = this.calculateDaysLeft(startDate, endDate);
-    if(!room){
+
+    if(!this.state.roomDetails){
         return (<div className="container roomerror">
             <div className="row my-5">
                 <div className="col-md-6 col-12 mx-auto">
@@ -55,8 +90,9 @@ export default class Booknow extends Component {
             </div>
         </div>);
         }
-        const {name,capacity,size,price,breakfast,pets,images,gym,parking,swimmingpool,lunch,dinner,handleChange} = room;
-        const [mainImg, ...defaultBcg] = images;
+        const {name,min_guests,room_type,price,breakfast,pets,images,gym,parking,swimmingpool,lunch,dinner} = this.state.roomDetails;
+        // const [mainImg, ...defaultBcg] = images;
+        console.log(this.state.roomDetails)
         return (
         <div className="container my-5">
             <div className="row">
@@ -66,7 +102,7 @@ export default class Booknow extends Component {
                     </div>
                     <div className="row">
                         <div className="col-md-6 col-12 my-auto">
-                            <img src={mainImg || defaultBcg} className="img-fluid" alt="selected room" />
+                            <img src={defaultBcg} className="img-fluid" alt="selected room" />
                         </div>
                         <div className="col-md-6 col-12 ">
                             <h1>Rooms Details</h1>
@@ -74,11 +110,31 @@ export default class Booknow extends Component {
                                 <thead className="thead-light">
                                     <tr>
                                         <th>Room Type</th>
-                                        <td>{name}</td>
+                                        <td>{name} ({room_type})</td>
                                     </tr>
                                     <tr>
-                                        <th>Capacity</th>
-                                        <td>{capacity}</td>
+                                        <th>Total Guests</th>
+                                        <td>
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <button
+                                            class="btn"
+                                            onClick={() => {
+                                                this.onQtyChange(this.state.totalGuests - 1);
+                                            }}
+                                            >
+                                            -
+                                            </button>
+                                            <h3>{this.state.totalGuests}</h3>
+                                            <button
+                                            class="btn"
+                                            onClick={() => {
+                                                this.onQtyChange(this.state.totalGuests + 1);
+                                            }}
+                                            >
+                                            +
+                                            </button>
+                                        </div>
+                                        </td>
                                     </tr>
                                 
                                     
@@ -90,13 +146,13 @@ export default class Booknow extends Component {
                         <div className="col-md-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="Fromdate" className="font-weight-bolder mr-3">From Date </label>
-                                <DatePicker selected={this.state.startDate} onChange={this.handleChangeStart} className="form-control" />
+                                <DatePicker value={this.state.startDate} onChange={(e)=>this.handleChangeStart(e, e.target.value)} className="form-control" />
                             </div>
                         </div>
                         <div className="col-md-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="Todate" className="font-weight-bolder mr-3">To Date </label>
-                                <DatePicker selected={this.state.endDate} onChange={this.handleChangeEnd} className="form-control" />
+                                <DatePicker value={this.state.endDate} onChange={(e)=>this.handleChangeEnd(e, e.target.value)} className="form-control" />
                             </div>
                         </div>
                     </div>
@@ -111,31 +167,31 @@ export default class Booknow extends Component {
                         </div>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" name="breakfast" id="breakfast" checked={breakfast} onChange={handleChange} />
+                        <input type="checkbox" className="custom-control-input" name="breakfast" id="breakfast" checked={breakfast} onChange={this.handleChange} />
                         <label htmlFor="breakfast" className="custom-control-label">Breakfast</label>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" name="pets" id="pets" checked={pets} onChange={handleChange} />
+                        <input type="checkbox" className="custom-control-input" name="pets" id="pets" checked={pets} onChange={this.handleChange} />
                         <label htmlFor="pets" className="custom-control-label">Pets</label>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" name="parking" id="parking" checked={parking} onChange={handleChange} />
+                        <input type="checkbox" className="custom-control-input" name="parking" id="parking" checked={parking} onChange={this.handleChange} />
                         <label htmlFor="parking" className="custom-control-label">Parking</label>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" name="swimmingpool" id="swimmingpool" checked={swimmingpool} onChange={handleChange} />
+                        <input type="checkbox" className="custom-control-input" name="swimmingpool" id="swimmingpool" checked={swimmingpool} onChange={this.handleChange} />
                         <label htmlFor="swimmingpool" className="custom-control-label">Pool</label>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" name="lunch" id="lunch" checked={lunch} onChange={handleChange} />
+                        <input type="checkbox" className="custom-control-input" name="lunch" id="lunch" checked={lunch} onChange={this.handleChange} />
                         <label htmlFor="lunch" className="custom-control-label">Lunch</label>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" name="dinner" id="dinner" checked={dinner} onChange={handleChange} />
+                        <input type="checkbox" className="custom-control-input" name="dinner" id="dinner" checked={dinner} onChange={this.handleChange} />
                         <label htmlFor="dinner" className="custom-control-label">Dinner</label>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" name="gym" id="gym" checked={gym} onChange={handleChange} />
+                        <input type="checkbox" className="custom-control-input" name="gym" id="gym" checked={gym} onChange={this.handleChange} />
                         <label htmlFor="gym" className="custom-control-label">Gym</label>
                     </div>
 

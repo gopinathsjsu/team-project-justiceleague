@@ -5,4 +5,4 @@
 //   ":" +
 //   process.env.REACT_APP_BACKEND_PORT;
 
-export const semiEndpoint = "http://localhost:8080";
+export const semiEndpoint = "http://localhost:5002";

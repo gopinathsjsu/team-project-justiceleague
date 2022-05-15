@@ -1,4 +1,5 @@
 import axios from "axios";
+import { get_admin } from "./../admin_security";
 
 // STUB for controllers
 export function fetch_bookings() {
@@ -7,11 +8,10 @@ export function fetch_bookings() {
 		const end_point = "/bookings/admin";
 		const URL = `${host_name}${end_point}`
 
+		const { name, pwd } = get_admin();
+		
 		const network_call = axios.get(URL, {
-			headers: {
-				"name": process.env.USER_NAME || "root",
-				"pwd": process.env.USER_PWD || "grantAllPermissions"
-			}
+			headers: { name, pwd }
 		});
 
 		network_call.then((response) => {

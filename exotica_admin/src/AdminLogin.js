@@ -1,30 +1,37 @@
-import React,{useState,useEffect} from 'react'
+import React,{ useState } from 'react'
 
-import axios from "axios"
 import { useHistory } from "react-router-dom";
 import "./AdminLogin.css"
 
 import {MdEmail} from "react-icons/md"
 import {RiLockPasswordFill} from "react-icons/ri" 
 import { useStateValue } from './StateProvider'
-import { actionTypes } from './reducer'
+import { authenticate } from './controllers/auth';
+import { sign_in } from './admin_security';
 
 function Login() {
 
     const [{}, dispatch] = useStateValue();
 
-    var [email,setEmail]=useState("");
-    var [password,setPassword]=useState("");
+    const [email,setEmail]=useState("");
+    const [password,setPassword]=useState("");
 
   
     var history = useHistory();
 
-    async function admin_login_in(){
-
-        history.push("/");
-        return;
-        if(request.data.length == 0){
-            alert ("username or Password is incorrect ")
+    async function admin_login_in(name, pwd){
+        try {
+            const logged_in = await authenticate(email, pwd);
+            if (logged_in) {
+                const creds = { name, pwd };
+                sign_in(creds);
+                window.location.href = "/rooms";
+            } else {
+                throw "Invalid creds";
+            }
+        } catch(ex) {
+            console.log("AdminLogin::Exception", ex);
+            window.location.reload();
         }
     }
 
@@ -44,7 +51,13 @@ function Login() {
                     </div>
                     
                     <div className="group">
-                        <button className="" style={{padding:"10px 20px",outline:"none",border:"none",backgroundColor:"orange",color:"white",cursor:"pointer",fontWeight:"600"}} value="Sign In" onClick={admin_login_in}>Sign In</button>
+                        <button 
+                        className="" 
+                        style={{padding:"10px 20px",outline:"none",border:"none",backgroundColor:"orange",color:"white",cursor:"pointer",fontWeight:"600"}} 
+                        value="Sign In" 
+                        onClick={() => admin_login_in(email, password)}>
+                            Sign In
+                        </button>
                     </div>
            
                 </div>

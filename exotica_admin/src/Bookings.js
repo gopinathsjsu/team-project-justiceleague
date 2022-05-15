@@ -10,8 +10,6 @@ function Bookings() {
    
     var [ booking_details, setBookings ]= useState([]);
 
-    // var fetchbookings = "http://localhost:8000/bookings";
-
     useEffect(()=>{
         async function bookings(){
             // var request = await axios.get(fetchbookings);

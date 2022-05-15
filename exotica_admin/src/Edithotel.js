@@ -53,10 +53,9 @@ function Edithotel() {
             "hotelname":edit_name,
             "hotelemail":edit_email,
             "phone":edit_phone,
-           "addr":edit_addr,
+            "addr":edit_addr,
           
         });
-          alert(request.data)
     }
     return (
 

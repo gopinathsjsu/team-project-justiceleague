@@ -101,8 +101,6 @@ simple and elegant design that is easier to maintain and revise.
   
   ## Application Screenshots
   
-
-
   <img width="1440" alt="Screen Shot 2022-05-12 at 11 18 49 PM" src="https://user-images.githubusercontent.com/45312477/168223092-82c929b1-5678-4e2a-95e7-4671f0ed2120.png">
 <img width="1440" alt="Screen Shot 2022-05-12 at 11 18 54 PM" src="https://user-images.githubusercontent.com/45312477/168223109-ad55e180-c84f-4c17-bace-2e7523be6584.png">
 <img width="1440" alt="Screen Shot 2022-05-12 at 11 18 59 PM" src="https://user-images.githubusercontent.com/45312477/168223111-8df01872-739f-4000-92c2-4c308b32db62.png">
@@ -124,6 +122,10 @@ simple and elegant design that is easier to maintain and revise.
 
  ## Burndown charts
 [BURNDOWN CHARTS.pdf](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/BURNDOWN%20CHARTS.pdf)
+  
+## Project Journal
+  
+[Project Journal.pdf](https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Project_Journal%20-%20Sheet1.pdf)
 
 
 # Database Tables

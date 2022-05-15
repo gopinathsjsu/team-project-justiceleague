@@ -17,7 +17,6 @@ function RoomsContainer({ ...props }) {
     return <Loading />;
   }
 
-  console.log("rooms: ", rooms);
   return (
     <>
       <RoomsList rooms={rooms} />

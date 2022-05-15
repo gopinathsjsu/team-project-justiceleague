@@ -32,9 +32,11 @@ const Navbar = () => {
                         <li className="nav-item">
                             <NavLink className="nav-link" activeClassName="active_class" exact to="/about">About</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active_class" exact to="/SignUp">Register</NavLink>
-                        </li>
+                        {!sessionStorage.getItem("userId") ?
+                            <li className="nav-item">
+                                <NavLink className="nav-link" activeClassName="active_class" exact to="/SignUp">Register</NavLink>
+                            </li>
+                        : null}
                     </ul>
                 </div>
             </div>

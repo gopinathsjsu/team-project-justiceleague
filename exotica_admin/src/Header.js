@@ -35,16 +35,15 @@ var logout = ()=>{
             
 
             <div className="header_right">
-              <div className="item " onClick={()=>{history.push("/hotel_details")}}>
+              {/* <div className="item " onClick={()=>{history.push("/hotel_details")}}>
                   <HiUser style={{fontSize:"16px",color:"grey",marginBottom:"5px"}}/>
                   <span className="icon_desc" >Hotel Profile</span>
               </div>
 
               <div className="item" onClick={()=>{history.push("/addDetails")}}>
-                  <HiOutlineShoppingBag style={{fontSize:"16px",color:"grey",marginBottom:"5px"}} />
-                
+                  <HiOutlineShoppingBag style={{fontSize:"16px",color:"grey",marginBottom:"5px"}} />  
                   <span className="icon_desc">Add Detials</span>
-              </div>
+              </div> */}
 
 
               <div className="item" onClick={()=>{history.push("/bookings")}}>

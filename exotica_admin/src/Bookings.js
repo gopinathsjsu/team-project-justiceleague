@@ -46,7 +46,6 @@ function Bookings() {
                 <div className="table-content">
                     {
                         booking_details && booking_details.map(booking=> {
-                            console.info("Booking = ", booking);booking_details
                             var { 
                                 id, created_at, from_date, to_date, price, user_first_name, user_last_name,
                                 room_name, room_id, status, guest_count,  

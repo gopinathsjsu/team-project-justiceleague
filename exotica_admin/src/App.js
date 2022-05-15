@@ -13,6 +13,7 @@ const Edithotel = React.lazy(()=>import('./Edithotel'));
 const AddDetails = React.lazy(()=>import('./AddDetails'));
 const Home = React.lazy(()=>import('./Home'));
 const Bookings = React.lazy(()=>import('./Bookings'));
+const Rooms = React.lazy(()=>import('./Rooms'));
 const EditRoomPrice = React.lazy(()=>import('./EditRoomPrice'));
 const Hoteldetails = React.lazy(()=>import('./Hoteldetails'));
 
@@ -25,32 +26,17 @@ function App() {
 
 
     <Router>
-      <Suspense fallback={Reloader}>
+    <Suspense fallback={Reloader}>
     {
-     //!(admin) ? 
-     //<AdminLogin /> 
-     //:
-   
-   
         <Switch>
-          <Route path="/edithotel"><Edithotel /></Route>
-
           <Route path="/bookings"> <Header /> <Bookings /> <Footer /></Route>
-
-
-          <Route path="/addDetails"><Header /><AddDetails /><Footer /></Route>
-
-         
-          <Route path="/hotel_details"><Header /><Hoteldetails/><Footer /></Route>
-
+          <Route path="/rooms"> <Header /> <Rooms /> <Footer /></Route>
           <Route path="/adminlogin"><AdminLogin /></Route>
-
-        <Route path="/" exact><Header /><Home /><Footer /></Route>    
+          <Route path="/" exact><Header /><Home /><Footer /></Route>    
         </Switch>
 }
-</Suspense>
-<Route path="/adminregister"><AdminRegister /></Route>
-
+      </Suspense>
+      <Route path="/adminregister"><AdminRegister /></Route>
     </Router>
 
  

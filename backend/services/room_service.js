@@ -53,7 +53,7 @@ class RoomService {
         if (!(Array.isArray(rooms) && rooms.length > 0)) 
             return HTTP_RES(404, "No room found");
 
-        const { name, basePrice, minGuests, weekEndSurge, festivalSurge } = updateObj;
+        const { name, basePrice, minGuests, weekEndSurge, festivalSurge, guestSurge } = updateObj;
         const [ room ] = rooms;
 
         await model.updateByID(
@@ -63,7 +63,8 @@ class RoomService {
                 basePrice || room.base_price,
                 minGuests || room.min_guests,
                 weekEndSurge || room.week_end_surge,
-                festivalSurge || room.festival_surge
+                festivalSurge || room.festival_surge,
+                guestSurge || room.guest_fee
             )
         )
 

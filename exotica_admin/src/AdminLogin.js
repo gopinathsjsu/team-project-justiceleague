@@ -17,22 +17,17 @@ function Login() {
     var [password,setPassword]=useState("");
 
   
-  var history = useHistory();
+    var history = useHistory();
 
-        async function admin_login_in(){
-                var request = await axios.get(`http://localhost:8000/adminlogin/${email}/${password}`);
-               if(request.data.length >0){
-                   console.log("Logged IN!!!")
-                   console.log(request.data)
-                   dispatch({
-                    type:actionTypes.SET_ADMIN,
-                    admin:request.data[0].admin_name
-                    })
-                }
-                if(request.data.length == 0){
-                    alert ("username or Password is incorrect ")
-                }
-            }
+    async function admin_login_in(){
+
+        history.push("/");
+        return;
+        if(request.data.length == 0){
+            alert ("username or Password is incorrect ")
+        }
+    }
+
     return (
         <div className="loginContainer" style={{backgroundColor:"#F9DC5C"}} >
         <div className="login" >

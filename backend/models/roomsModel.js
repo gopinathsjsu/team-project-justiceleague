@@ -86,14 +86,15 @@ model.create = (newRoomObject, table = DB_TABLE_ROOMS) => {
 	});
 };
 
-model.updateRequestactory = (name, base_price, min_guests, week_end_surge, festival_surge) => {
+model.updateRequestactory = (name, base_price, min_guests, week_end_surge, festival_surge, guest_surge) => {
 	// ADDING extra SPACE after sentence 1 to delimit fields
 	const _ = `
 		name = '${name}',
 		 base_price = '${base_price}',
 		 min_guests = '${min_guests}',
 		 week_end_surge = '${week_end_surge}',
-		 festival_surge = '${festival_surge}'
+		 festival_surge = '${festival_surge}',
+		 guest_fee = '${guest_surge}'
 	`;
 	console.info("roomModel::updateRequestFactory:: Request = ", _);
 	return _;
@@ -101,7 +102,6 @@ model.updateRequestactory = (name, base_price, min_guests, week_end_surge, festi
 
 model.updateByID = (roomId, spaceSeperatedUpdateQueryString, table = DB_TABLE_ROOMS) => {
 	return new Promise((resolve, reject) => {
-		console.info("TF = ", roomId);
 		const query = `
 			UPDATE ${table}
 			SET ${spaceSeperatedUpdateQueryString}

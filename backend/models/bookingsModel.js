@@ -64,6 +64,7 @@ model.create = (
 	to_date,
 	guest_count,
 	status, 
+	ammenities,
 	table = DB_TABLE_BOOKINGS
 	) => {
 	return new Promise((resolve, reject) => {
@@ -73,9 +74,9 @@ model.create = (
 		const query = `
 			INSERT
 			INTO ${table} 
-			(room_id, user_id, price, from_date, to_date, guest_count, status)
+			(room_id, user_id, price, from_date, to_date, guest_count, status, ammenities)
 			VALUES 
-			('${room_id}', '${user_id}', '${price}', '${from_date}', '${to_date}', '${guest_count}', '${status}');
+			('${room_id}', '${user_id}', '${price}', '${from_date}', '${to_date}', '${guest_count}', '${status}', '${ammenities}');
 		`;
 
 		db.query(

@@ -22,7 +22,7 @@ class RoomService {
 
     async createRoom(newRoomObj) {
         const {
-            name, basePrice, roomType, minGuests, weekEndSurge, festivalSurge 
+            name, basePrice, roomType, minGuests, weekEndSurge, festivalSurge, location, description 
         } = newRoomObj;
 
         if (!name || !basePrice || !(roomType in model.ROOM_ACCOMODATION) ) {
@@ -36,7 +36,9 @@ class RoomService {
             room_type: roomType,
             min_guests: minGuests || model.ROOM_ACCOMODATION[roomType],
             week_end_surge: weekEndSurge || 0,
-            festival_surge: festivalSurge || 0
+            festival_surge: festivalSurge || 0,
+            location,
+            description
         };
 
         await model.create(

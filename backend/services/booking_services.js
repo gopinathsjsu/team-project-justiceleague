@@ -79,24 +79,40 @@ class BookingService {
    */
   async bookRoomForUser(roomId, bookingInfo) {
     try {
-      // TODO: Validate booking information
       const { userId, start, end, total_guests, ammenities } = bookingInfo;
+
+      if (!(Array.isArray(ammenities) && ammenities.length <= Object.keys(this.AMMENITIES).length)) {
+        return HTTP_RES(400, "Invalid ammenities");
+      };
+
+      for(let i = 0; i < ammenities.length; i++) {
+        let cmp = ammenities[i];
+        if (!(cmp in this.AMMENITIES)) {
+          return HTTP_RES(400, "Illegal ammenity");
+        }
+      }
+
+      let ammenities_string = ammenities.join(",");
 
       if (!IS_VALID_DATE(start) && !IS_VALID_DATE(end)) {
         return HTTP_RES(400, "Invalid date format");
       }
 
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+
       if (
-        new Date(start) < new Date() ||
-        new Date(end) < new Date() ||
-        new Date(end) < new Date(start)
+        startDate < new Date() ||
+        endDate < new Date() ||
+        endDate < startDate || 
+        (Math.floor((endDate - startDate) / (1000*60*60*24)) > 7)
       ) {
         return HTTP_RES(400, "Invalid start and end dates");
       }
       // Assert room can be booked
       const existingBooking = await model.getBookingsByDates(
-        new Date(start),
-        new Date(end),
+        startDate,
+        endDate,
         roomId
       );
       if (Array.isArray(existingBooking) && existingBooking.length > 0) {
@@ -134,9 +150,6 @@ class BookingService {
         customer_rewards: PricingService.customer_rewards(),
       });
 
-      const startDate = new Date(start);
-      const endDate = new Date(end);
-
       await model.create(
         userId,
         roomId,
@@ -144,15 +157,19 @@ class BookingService {
         startDate,
         endDate,
         total_guests,
-        "confirmed"
+        "confirmed",
+        ammenities_string
       );
 
-      const newlyCreatedBooking = await model.getBookingsByDates(
+      let newlyCreatedBooking = await model.getBookingsByDates(
         startDate,
         endDate,
         roomId
       );
-      return HTTP_RES(200, "Success", newlyCreatedBooking);
+      
+      let [updated_booking] = newlyCreatedBooking;
+      updated_booking["ammenities"] = updated_booking["ammenities"].split(",");
+      return HTTP_RES(200, "Success", [updated_booking]);
     } catch (e) {
       console.error("BookingService::bookRoomForUser::Uncaught exception\n", e);
       return HTTP_500();
@@ -173,6 +190,7 @@ class BookingService {
       }
 
       let [booking] = bookings;
+      booking["ammenities"] = booking["ammenities"].split(",");
       if (booking.user_id != userId) {
         console.error(
           "BookingService::UpdateBooking:: Booking user != authenticated user ",

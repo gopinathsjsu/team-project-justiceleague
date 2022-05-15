@@ -165,7 +165,7 @@ export default class Booknow extends Component {
                         <div className="row">
                             <div className="col-md-6 col-12">
                                 <h6 className="font-weight-bolder">Number of days : {daysLeft}</h6>
-                                <mark>Please make sure Checkin time is from 9 am to 12 pm</mark>
+                                <mark>Please make sure check-in time is from 9 am to 12 pm</mark>
                             </div>
                             <div className="col-md-6 col-12">
                                 <h6 className="font-weight-bold">Price per day : <span className="badge badge-info">${base_price}</span></h6>
@@ -211,7 +211,7 @@ export default class Booknow extends Component {
                         <p>Your room is booked successfully....</p>
                     </div>
                     <div>
-                        <Link to="/" className="btn btn-dark">Goto Home</Link>
+                        <Link to="/" className="btn btn-dark">Back to Home</Link>
                         &nbsp;&nbsp;
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>

@@ -4,7 +4,7 @@ import { get_admin } from "./../admin_security";
 // STUB for controllers
 export function fetch_bookings() {
 	return new Promise((resolve, reject) => {
-		const host_name = process.env.REACT_APP_HOST_NAME || "http://localhost:5000";
+		const host_name = "http://52.53.127.193" || "http://localhost:5000";
 		const end_point = "/bookings/admin";
 		const URL = `${host_name}${end_point}`
 

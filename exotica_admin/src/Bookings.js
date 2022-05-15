@@ -2,153 +2,73 @@ import React ,{useState,useEffect} from 'react';
 
 import './Profile.css'
 import './Bookings.css'
-import {AiFillPhone,AiFillCreditCard} from "react-icons/ai"
-import {BsFillPersonFill} from "react-icons/bs"
-import {MdEmail,MdEdit} from "react-icons/md"
 import {FaHotel} from "react-icons/fa"
-import axios from "axios"
 
-import { useStateValue } from './StateProvider';
-import { Link, useHistory } from "react-router-dom";
-
-
+import { fetch_bookings } from "./controllers/bookings";
 
 function Bookings() {
    
-    var [booking_details,setBookings]=useState([]);
-    var [book_details,setBook]=useState([{
-        "room_id" : "123",
-        "booking_date" : "20/11/2020",
-        "start_date" : "12/12/2020",
-        "end_date" : "15/11/2020",
-        "amount" : 100 
-    },{
-        "room_id" : "123",
-        "booking_date" : "20/11/2020",
-        "start_date" : "12/12/2020",
-        "end_date" : "15/11/2020",
-        "amount" : 100 
-    }]);
+    var [ booking_details, setBookings ]= useState([]);
 
-    var [arr,setArr]=useState([]);
-
-
-    // var bookingsurl="http://localhost:8000/customer"
-
-  
-
-
-    
-  
-
-    var fetchbookings = "http://localhost:8000/bookings";
+    // var fetchbookings = "http://localhost:8000/bookings";
 
     useEffect(()=>{
-   
         async function bookings(){
-            var request = await axios.get(fetchbookings);
-         
-       
-          
-          setBookings(request.data);
-
-        console.log(request.data)
-        }
-             
+            // var request = await axios.get(fetchbookings);
+            const {status, data} = await fetch_bookings();
+            console.info("Bookings.js::useEffect::Bookings = ", data);
+            if (status === 200) {
+                // setBookings(request.data);
+                setBookings(data.data);
+            };
+        } 
         bookings();
-    },[fetchbookings]);
-  
-    var history = useHistory()
+    }, []);
 
-    var renderTableHeader =()=> {
-        let header =[
-            "RoomID","Booking_date","Start_Date","End_Date","Amount"
-        ];
-
-        return header.map((key_) => {
-           return <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">{key_}</a></div>
-        })
-     }
-
-     var formatDate = (date)=>{
-         var d =new Date(date);
-         return (d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear() )
-     }
-  
-
-    var renderTable = () => {
-        return booking_details.map(item=> {
-            var { room_id, booking_date, start_date, end_date, amount } = item
-            return (
-              
-                <div className="table-row">
-                    
-                  
-                    <div className="table-data">{room_id}</div>
-				<div className="table-data">{formatDate(booking_date)}</div>
-				<div className="table-data">{formatDate(start_date)}</div>
-				<div className="table-data">{formatDate(end_date)}</div>
-				<div className="table-data">{amount}</div>
-				
-                </div>
-         
-            )
-        })
+    var formatDate = (date)=>{
+        var d =new Date(date);
+        return (d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear() )
     }
     
-    
-    return (
-
-    
-        
+    return (    
         <div className="container">
-            
             <h4 style={{"textAlign":"left","color":""}}><FaHotel />  Reservation Details</h4>
-
             <div className="table">
-            <div className="table-header">
-               {renderTableHeader()}
-            </div>
+                <div className="table-header">
+                    <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">Booking ID</a></div>
+                    <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">Room Name</a></div>
+                    <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">Guests</a></div>
+                    <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">From</a></div>
+                    <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">To</a></div>
+                    <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">Price</a></div>
+                    <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">User</a></div>
+                    <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">Status</a></div>
+                </div>
 
-            <div className="table-content">
-          
-         
-                   {
-                       renderTable()
-                   }  
-                 
+                <div className="table-content">
+                    {
+                        booking_details && booking_details.map(booking=> {
+                            console.info("Booking = ", booking);booking_details
+                            var { 
+                                id, created_at, from_date, to_date, price, user_first_name, user_last_name,
+                                room_name, room_id, status, guest_count,  
+                            } = booking;
+                            return (
+                                <div key = {room_id} className="table-row">
+                                    <div className="table-data">{id}</div>
+                                    <div className="table-data">{room_name}</div>
+                                    <div className="table-data">{guest_count}</div>
+                                    <div className="table-data">{formatDate(from_date)}</div>
+                                    <div className="table-data">{formatDate(to_date)}</div>
+                                    <div className="table-data">{price}</div>
+                                    <div className="table-data">{`${user_first_name} ${user_last_name}`}</div>
+                                    <div className="table-data">{status}</div>
+                                </div>
+                            )
+                        })
+                    }  
+                </div>  
             </div>
-                
-             
-            </div>
-           
-
-         
-            
-                
-            
-           
-                 
-                
-                 
-              {/* {
-                  book_details?.map((item)=>(
-                            <div className="data">
-                       <p>RoomId : {item.room_id} </p>
-                       <p>Bookingdate : {item.booking_date} </p>
-                       <p>Start Date : {item.start_date} </p>
-                       <p>End Date : {item.end_date} </p>
-                       <p>Amount : {item.amount} </p>
-                            </div>
-                  ))
-                     
-                } */}
-             
-          
-             
-          
-            
-       
         </div>
     )
 }

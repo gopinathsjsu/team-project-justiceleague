@@ -82,6 +82,9 @@ simple and elegant design that is easier to maintain and revise.
 <li>can logout of the admin module
 <li>can add rooms in different location of the hotel chain
   
+  ## Deployment Diagram
+  ![Deployment Diagram - Page 1.jpeg]https://github.com/gopinathsjsu/team-project-justiceleague/blob/main/Deployment%20Diagram%20-%20Page%201.jpeg
+  
   ## Use Case Diagram
   ![use_case_diagram](https://user-images.githubusercontent.com/45312477/167570893-3be66308-1e14-4d66-ad9c-e4ac54436b2b.jpg)
   

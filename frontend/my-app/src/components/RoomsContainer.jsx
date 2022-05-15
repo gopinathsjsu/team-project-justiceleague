@@ -1,14 +1,11 @@
 import React from "react";
-import RoomsFilter from "./RoomsFilter";
 import RoomsList from "./RoomsList";
-import { withRoomConsumer } from "../context";
 import Loading from "./Loading";
 import { useState, useEffect } from "react";
 import { getAllRooms } from "../controllers/rooms";
 
-function RoomsContainer({ context }) {
+function RoomsContainer({ ...props }) {
   const [rooms, setRooms] = useState(null);
-  // const{loading,sortedRooms,rooms} = context;
 
   useEffect(() => {
     getAllRooms()
@@ -20,11 +17,11 @@ function RoomsContainer({ context }) {
     return <Loading />;
   }
 
+  console.log("rooms: ", rooms);
   return (
     <>
-      {/* <RoomsFilter rooms={rooms} /> */}
       <RoomsList rooms={rooms} />
     </>
   );
 }
-export default withRoomConsumer(RoomsContainer);
+export default RoomsContainer;

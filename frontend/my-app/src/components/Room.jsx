@@ -12,7 +12,7 @@ export default function Room({room}) {
                 <div className="price-top">
                     <h6>${base_price}/-</h6>
                     <h6>Per Night</h6>
-                    <h6>San Jose</h6>
+                    <h6>{location}</h6>
                 </div>
                 <Link to={`/rooms/` + id} className="btn-warning room-link text-center" >Features</Link>
               <p className="room-info">{name}</p>

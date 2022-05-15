@@ -21,7 +21,7 @@ Every Friday
 
 <li> Frontend: ReactJS
 <li> Backend: NodeJS and ExpressJS
-<li> Database: MongoDB
+<li> Database: MySQL
 <li> Deployment: AWS EC2 </li>
 
 ## XP Values Implemented

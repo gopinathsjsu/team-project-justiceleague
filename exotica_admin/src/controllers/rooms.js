@@ -3,7 +3,7 @@ import { get_admin } from "../admin_security";
 
 export async function fetch_rooms() {
 	return new Promise((resolve, reject) => {
-		const host_name = process.env.HOST_NAME || "http://localhost:5000";
+		const host_name = process.env.REACT_APP_HOST_NAME || "http://localhost:5000";
 		const end_point = "/rooms";
 		const URL = `${host_name}${end_point}`;
 
@@ -20,7 +20,7 @@ export async function fetch_rooms() {
 
 export async function create_room(new_room) {
 	return new Promise((resolve, reject) => {
-		const host_name = process.env.HOST_NAME || "http://localhost:5000";
+		const host_name = process.env.REACT_APP_HOST_NAME || "http://localhost:5000";
 		const end_point = "/rooms";
 		const URL = `${host_name}${end_point}`;
 
@@ -42,7 +42,7 @@ export async function create_room(new_room) {
 };
 
 export async function update_room(roomId, room) {
-	const host_name = process.env.HOST_NAME || "http://localhost:5000";
+	const host_name = process.env.REACT_APP_HOST_NAME || "http://localhost:5000";
 	const end_point = `/rooms/${roomId}`;
 	const URL = `${host_name}${end_point}`;
 

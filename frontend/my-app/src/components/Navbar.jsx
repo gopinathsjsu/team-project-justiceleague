@@ -13,7 +13,7 @@ const Navbar = () => {
     <>
         <nav  className="navbar navbar-expand-sm navbar-dark  py-2 fixed-top navbar-custom" background-color="black">
             <div className="container-fluid ">
-                <span className="navbar-brand font-weight-bolder">Exotica</span>
+                <span className="navbar-brand font-weight-bolder" style={{ cursor: "pointer" }} onClick={() => { window.location.href = "/"}}>Exotica</span>
                 <a href="void(0)" className="navbar-toggler border-0" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span>
                         <FaAlignRight className="nav-icon" /></span>

@@ -101,6 +101,11 @@ simple and elegant design that is easier to maintain and revise.
   ## Class Diagram
   
   [Class Diagram.pdf](https://github.com/gopinathsjsu/team-project-justiceleague/files/8684385/Class.Diagram.pdf)
+
+  ## Database Schemas
+  ![Bookings Table](schema_bookings.png)
+  ![Customers Table](schema_customers.png)
+  ![Rooms Table](schema_rooms.png)
   
   ## Application Screenshots
   

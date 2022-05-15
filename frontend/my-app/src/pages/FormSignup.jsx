@@ -2,6 +2,7 @@ import React from 'react';
 import validate from './validateInfo';
 import useForm from './useForm';
 import './Form.css';
+import { Link } from 'react-router-dom';
 
 const FormSignup = ({ submitForm }) => {
   const { handleChange, handleSubmit, values, errors } = useForm(
@@ -13,23 +14,38 @@ const FormSignup = ({ submitForm }) => {
     <div className='form-content-right'>
       <form onSubmit={handleSubmit} className='form' noValidate>
         <h1>
-          Creat an account today to get a $50 credit on all the hotels from EXOTICA!
+          Create an account today to get a $50 credit on all the hotels from EXOTICA!
         </h1>
         <div className='form-inputs'>
-          <label className='form-label'>Username</label>
+          <label className='form-label'>First Name</label>
           <input
+            required
             className='form-input'
             type='text'
-            name='username'
-            placeholder='Enter your username'
-            value={values.username}
+            name='firstName'
+            placeholder='Enter your first name'
+            value={values.firstName}
             onChange={handleChange}
           />
-          {errors.username && <p>{errors.username}</p>}
+          {errors.firstName && <p>{errors.firstName}</p>}
+        </div>
+        <div className='form-inputs'>
+          <label className='form-label'>Last Name</label>
+          <input
+            required
+            className='form-input'
+            type='text'
+            name='lastName'
+            placeholder='Enter your last name'
+            value={values.lastName}
+            onChange={handleChange}
+          />
+          {errors.lastName && <p>{errors.lastName}</p>}
         </div>
         <div className='form-inputs'>
           <label className='form-label'>Email</label>
           <input
+            required
             className='form-input'
             type='email'
             name='email'
@@ -42,6 +58,7 @@ const FormSignup = ({ submitForm }) => {
         <div className='form-inputs'>
           <label className='form-label'>Password</label>
           <input
+            required
             className='form-input'
             type='password'
             name='password'
@@ -54,6 +71,7 @@ const FormSignup = ({ submitForm }) => {
         <div className='form-inputs'>
           <label className='form-label'>Confirm Password</label>
           <input
+            required
             className='form-input'
             type='password'
             name='password2'
@@ -67,7 +85,7 @@ const FormSignup = ({ submitForm }) => {
           Sign up
         </button>
         <span className='form-input-login'>
-          Already have an account? Login <a href='#'>here</a>
+          Already have an account? Login <Link to="/Login">here</Link>
         </span>
       </form>
     </div>
